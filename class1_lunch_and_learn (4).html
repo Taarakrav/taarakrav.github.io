@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Essentials | Lunch & Learn — Class 1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+    :root {
+      --bg:           #0B1623;
+      --bg-mid:       #0F1E30;
+      --surface:      #162840;
+      --panel:        #1A3050;
+      --text:         #F0F8FF;
+      --muted:        #A8C8E8;
+      --teal:         #1ADFB0;
+      --teal-dim:     rgba(26,223,176,.18);
+      --teal-glow:    rgba(26,223,176,.07);
+      --blue:         #4A8BE0;
+      --blue-dim:     rgba(74,139,224,.18);
+      --gold:         #F5CC60;
+      --line:         rgba(26,223,176,.15);
+      --shadow:       0 20px 60px rgba(0,0,0,.4);
+      --radius:       20px;
+      --max:          1120px;
+      --font:         'Inter', system-ui, -apple-system, sans-serif;
+      --head:         'Montserrat', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+
+    /* NAV */
+    .site-nav {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(14px);
+      background: rgba(11,22,35,.92);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      max-width: var(--max); margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .brand {
+      font-family: var(--head); font-weight: 800; font-size: 0.95rem;
+      display: flex; align-items: center; gap: 0.6rem; color: var(--text);
+    }
+    .brand-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--teal); box-shadow: 0 0 10px var(--teal); flex-shrink: 0;
+    }
+    .badge {
+      background: var(--teal-dim); border: 1px solid rgba(26,223,176,.4);
+      color: var(--teal); border-radius: 999px; padding: 0.2rem 0.65rem;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em;
+    }
+    .nav-links {
+      display: flex; gap: 0.4rem; font-size: 0.85rem; flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      border: 1px solid transparent; padding: 0.28rem 0.6rem;
+      border-radius: 999px;
+      transition: color 180ms, border-color 180ms, background 180ms;
+    }
+    .nav-links a:hover, .nav-links a:focus {
+      color: var(--teal); border-color: var(--line);
+      background: var(--teal-glow); outline: 2px solid var(--teal); outline-offset: 2px;
+    }
+
+    /* SECTIONS */
+    section { min-height: 100vh; padding: 7rem 1.5rem; display: grid; align-items: center; }
+    .section-inner { width: 100%; max-width: var(--max); margin: 0 auto; }
+
+    /* TYPOGRAPHY */
+    .eyebrow {
+      display: inline-flex; gap: 0.5rem; align-items: center;
+      color: var(--teal); font-family: var(--head); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem;
+      margin-bottom: 1rem;
+    }
+    .eyebrow::before {
+      content: ""; width: 32px; height: 2px;
+      background: currentColor; border-radius: 999px;
+    }
+    h1, h2, h3 {
+      font-family: var(--head); font-weight: 800;
+      line-height: 1.08; letter-spacing: -0.01em; margin: 0;
+      color: var(--text);
+    }
+    h1 { font-size: clamp(2.8rem, 7vw, 6.4rem); }
+    h2 { font-size: clamp(2rem, 4.8vw, 4.2rem); max-width: 900px; }
+    h3 { font-size: clamp(1.2rem, 2.4vw, 1.8rem); margin-bottom: 0.6rem; }
+    p { color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.15rem); max-width: 720px; margin-top: 0.75rem; margin-bottom: 0; }
+    strong { color: var(--text); }
+    em { color: var(--muted); }
+    .lead { font-size: clamp(1.1rem, 2vw, 1.4rem); color: #C8DEFF; margin-top: 1.2rem; }
+    .teal-line { width: 56px; height: 3px; background: var(--teal); border-radius: 999px; margin: 1.1rem 0; }
+
+    /* LAYOUT */
+    .two-col { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: start; }
+
+    /* CARDS */
+    .glass {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: clamp(1.25rem, 3vw, 2rem);
+    }
+
+    /* CALLOUTS — all guaranteed to pass 4.5:1 */
+    .note {
+      border-left: 3px solid var(--teal);
+      background: rgba(26,223,176,.1);
+      border-radius: 0 14px 14px 0;
+      padding: 0.9rem 1.1rem; margin-top: 1.2rem;
+    }
+    .note-label {
+      display: block; color: var(--teal);
+      font-family: var(--head); font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      font-weight: 700; margin-bottom: 0.4rem;
+    }
+    .note p { color: #C0E8D8; margin: 0; font-size: 0.97rem; }
+
+    .misconception {
+      border-left: 3px solid var(--gold);
+      background: rgba(245,204,96,.1);
+      border-radius: 0 14px 14px 0;
+      padding: 0.9rem 1.1rem; margin-top: 1rem;
+    }
+    .misconception .note-label { color: var(--gold); }
+    .misconception p { color: #ECD898; margin: 0; font-size: 0.97rem; }
+
+    .source-note {
+      border-left: 3px solid var(--blue);
+      background: rgba(74,139,224,.12);
+      border-radius: 0 14px 14px 0;
+      padding: 0.75rem 1rem; margin-top: 1rem;
+    }
+    .source-note p { color: #B8D4F8; margin: 0; font-size: 0.92rem; }
+
+    /* SCROLL CUE */
+    .scroll-cue { display: inline-flex; align-items: center; gap: 0.65rem; margin-top: 2rem; color: var(--muted); font-size: 0.9rem; }
+    .mouse { width: 22px; height: 36px; border: 1.5px solid rgba(26,223,176,.5); border-radius: 999px; position: relative; }
+    .mouse::after {
+      content: ""; position: absolute; top: 7px; left: 50%;
+      width: 3px; height: 3px; transform: translateX(-50%);
+      background: var(--teal); border-radius: 50%;
+      animation: scrollDot 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollDot {
+      0%  { opacity:0; transform:translate(-50%,0); }
+      40% { opacity:1; }
+      100%{ opacity:0; transform:translate(-50%,11px); }
+    }
+
+    /* PILL ROW */
+    .pill-row { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.9rem; }
+    .pill {
+      border: 1px solid rgba(26,223,176,.3);
+      background: rgba(26,223,176,.08);
+      border-radius: 999px; padding: 0.3rem 0.7rem;
+      color: #A8E8D0; font-size: 0.84rem;
+    }
+
+    /* LAYER EXPLORER */
+    .layer-stack { display: grid; gap: 0.7rem; }
+    button { font: inherit; cursor: pointer; }
+    .layer-btn {
+      width: 100%; border: 1px solid var(--line);
+      background: var(--surface); color: var(--text);
+      border-radius: 14px; padding: 0.85rem 1rem; text-align: left;
+      transition: transform 180ms, border-color 180ms, background 180ms;
+    }
+    .layer-btn:focus { outline: 2px solid var(--teal); outline-offset: 2px; }
+    .layer-btn strong { display: block; font-family: var(--head); font-size: 1rem; margin-bottom: 0.2rem; color: var(--text); }
+    .layer-btn span { display: block; color: var(--muted); font-size: 0.88rem; }
+    .layer-btn:hover, .layer-btn.active {
+      transform: translateX(4px);
+      background: var(--teal-dim);
+      border-color: rgba(26,223,176,.6);
+    }
+    .layer-btn.active strong { color: var(--teal); }
+    .explain-box { min-height: 230px; display: grid; align-content: start; gap: 0.4rem; padding-top: 0.5rem; }
+    #layer-title { color: var(--teal); font-size: 1.2rem; }
+    #layer-copy { color: var(--muted); font-size: 0.95rem; margin: 0.4rem 0 0; }
+
+    /* ML GRID */
+    .ml-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin-top: 1.2rem; }
+    .ml-card {
+      border: 1px solid var(--line); border-radius: 16px;
+      background: var(--surface); padding: 1.1rem;
+      transition: border-color 200ms, background 200ms;
+    }
+    .ml-card:hover { border-color: rgba(26,223,176,.45); background: rgba(26,223,176,.06); }
+    .ml-card strong { display: block; font-family: var(--head); color: var(--teal); font-size: 0.92rem; margin-bottom: 0.4rem; }
+    .ml-card p { margin: 0; font-size: 0.92rem; color: var(--muted); }
+    .ml-card .example { margin-top: 0.55rem; font-size: 0.84rem; color: #8ABCDC; font-style: italic; }
+
+    /* TRAINING ACTIVITY */
+    .trainer-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-top: 1rem; }
+    .train-card {
+      min-height: 96px; display: grid; gap: 0.3rem; align-content: center;
+      border: 1px solid var(--line); border-radius: 14px;
+      background: var(--surface); padding: 0.85rem 0.9rem; text-align: left;
+      transition: transform 180ms, border-color 180ms, background 180ms;
+    }
+    .train-card:focus { outline: 2px solid var(--teal); outline-offset: 2px; }
+    .train-card strong { color: var(--text); font-family: var(--head); font-size: 0.88rem; line-height: 1.3; }
+    .train-card span { color: var(--muted); font-size: 0.8rem; }
+    .train-card:hover, .train-card.selected {
+      transform: translateY(-2px);
+      border-color: rgba(26,223,176,.55);
+      background: var(--teal-dim);
+    }
+    .train-card.selected strong { color: var(--teal); }
+    .meter {
+      height: 10px; background: rgba(255,255,255,.07);
+      border: 1px solid var(--line); border-radius: 999px;
+      overflow: hidden; margin: 1rem 0 0.5rem;
+    }
+    .meter-fill {
+      width: 18%; height: 100%;
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+      transition: width 300ms ease;
+    }
+    .small-label { color: var(--muted); font-size: 0.9rem; }
+    .feedback-box {
+      margin-top: 0.75rem; padding: 0.9rem 1rem;
+      border: 1px solid var(--line); border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      color: var(--muted); font-size: 0.93rem; min-height: 58px;
+    }
+
+    /* TOKEN PREDICTOR */
+    .prompt-input {
+      width: 100%; border: 1px solid var(--line); border-radius: 14px;
+      background: var(--surface); color: var(--text);
+      padding: 0.85rem 1rem; font: inherit; font-size: 0.98rem;
+    }
+    .prompt-input:focus { outline: 2px solid var(--teal); outline-offset: 2px; border-color: transparent; }
+    .token-suggestions { display: grid; gap: 0.6rem; margin-top: 0.8rem; }
+    .token-choice {
+      border: 1px solid var(--line); border-radius: 14px;
+      padding: 0.75rem 1rem; background: var(--surface);
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .token-choice span { color: var(--muted); font-size: 0.93rem; }
+    .token-choice strong { color: var(--text); }
+    .prob { color: var(--teal); font-family: var(--head); font-weight: 700; font-size: 0.92rem; }
+
+    /* AGENT LOOP */
+    .agent-loop { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.9rem; margin-top: 1.2rem; }
+    .loop-step {
+      border: 1px solid var(--line); border-radius: 16px;
+      background: var(--surface); padding: 1rem;
+      opacity: 0.55; transform: scale(0.97);
+      transition: opacity 500ms, transform 500ms, border-color 500ms, background 500ms, box-shadow 500ms;
+    }
+    .loop-step.active {
+      opacity: 1; transform: scale(1);
+      border-color: rgba(26,223,176,.55);
+      background: var(--teal-dim);
+      box-shadow: 0 10px 30px rgba(26,223,176,.14);
+    }
+    .loop-num {
+      width: 30px; height: 30px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: rgba(26,223,176,.2); margin-bottom: 0.7rem;
+      font-family: var(--head); font-weight: 800;
+      color: var(--teal); font-size: 0.9rem;
+    }
+    .loop-step strong { display: block; font-family: var(--head); font-size: 1rem; margin-bottom: 0.35rem; color: var(--text); }
+    .loop-step p { margin: 0; font-size: 0.88rem; color: var(--muted); }
+
+    /* SYNTHESIS */
+    .synth-map { display: grid; gap: 0.6rem; max-width: 620px; margin: 1.8rem auto 0; }
+    .synth-item {
+      border: 1px solid var(--line); border-radius: 14px;
+      padding: 0.85rem 1.1rem; background: var(--surface);
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .synth-label { font-family: var(--head); font-weight: 700; color: var(--text); font-size: 0.95rem; }
+    .synth-arrow { color: var(--teal); font-size: 0.82rem; text-align: right; }
+
+    /* TIMELINE */
+    .timeline { display: grid; gap: 0.55rem; margin-top: 1.2rem; }
+    .timeline-item { display: flex; gap: 1rem; align-items: baseline; }
+    .timeline-year { font-family: var(--head); font-weight: 800; color: var(--teal); font-size: 0.82rem; white-space: nowrap; min-width: 44px; }
+    .timeline-text { color: var(--muted); font-size: 0.92rem; }
+
+    /* BUTTONS */
+    .btn-row { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 1.2rem; }
+    .button {
+      border: 1px solid var(--line); background: var(--surface);
+      color: var(--text); padding: 0.65rem 1.2rem; border-radius: 999px;
+      font-family: var(--head); font-weight: 700; font-size: 0.88rem;
+      text-decoration: none;
+      transition: transform 180ms, border-color 180ms, background 180ms, color 180ms;
+    }
+    .button:hover, .button:focus {
+      transform: translateY(-1px); background: var(--teal-dim);
+      border-color: rgba(26,223,176,.6); color: var(--teal);
+      outline: 2px solid var(--teal); outline-offset: 2px;
+    }
+    .button.primary { background: var(--teal); border-color: transparent; color: #0B1623; font-weight: 800; }
+    .button.primary:hover { background: #2ef5c5; color: #0B1623; }
+
+    /* REVEAL — starts visible, then enhanced if JS runs */
+    .reveal { opacity: 1; transform: none; }
+    .js-loaded .reveal { opacity: 0; transform: translateY(16px); transition: opacity 700ms ease, transform 700ms ease; }
+    .js-loaded .reveal.visible { opacity: 1; transform: none; }
+
+    footer { padding: 2rem 1.5rem 4rem; color: var(--muted); text-align: center; border-top: 1px solid var(--line); font-size: 0.88rem; }
+
+    @media (max-width: 900px) {
+      .two-col, .ml-grid { grid-template-columns: 1fr; }
+      .agent-loop, .trainer-grid { grid-template-columns: repeat(2,1fr); }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 560px) {
+      section { padding: 5rem 1rem; }
+      .agent-loop, .trainer-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 2.4rem; }
+    }
+    /* QUICK DRAW ACTIVITY */
+    .qd-frame-wrap {
+      position: relative; border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--line); background: var(--surface);
+      min-height: 560px;
+    }
+    .qd-frame-wrap iframe {
+      width: 100%; height: 600px; border: 0; display: block;
+    }
+    .qd-overlay {
+      position: absolute; inset: 0;
+      background: var(--surface);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.2rem; text-align: center; padding: 2rem;
+      transition: opacity 400ms ease;
+    }
+    .qd-overlay.hidden { opacity: 0; pointer-events: none; }
+    .qd-icon { font-size: 4rem; line-height: 1; }
+    .qd-overlay h3 { color: var(--text); font-size: 1.6rem; margin: 0; }
+    .qd-overlay p { color: var(--muted); max-width: 480px; margin: 0; font-size: 1rem; }
+    .qd-steps {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem; width: 100%; max-width: 560px; margin-top: 0.5rem;
+    }
+    .qd-step {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: 12px; padding: 0.8rem 0.6rem; font-size: 0.85rem;
+    }
+    .qd-step strong { display: block; color: var(--teal); font-family: var(--head); margin-bottom: 0.2rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .qd-step span { color: var(--muted); }
+    .qd-tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 0.3rem; }
+
+    /* VIDEO SECTION */
+    .video-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-top: 1.5rem; }
+    .video-card { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); overflow: hidden; }
+    .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+    .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+    .video-label { padding: 0.8rem 1rem; }
+    .video-label strong { display: block; font-family: var(--head); font-size: 0.9rem; color: var(--text); margin-bottom: 0.2rem; }
+    .video-label span { color: var(--muted); font-size: 0.82rem; }
+
+    /* QUIZ SECTION */
+    .quiz-card {
+      border: 1px solid var(--line); border-radius: 16px;
+      background: var(--surface); padding: 1.4rem 1.5rem;
+      margin-top: 1rem;
+    }
+    .quiz-question { font-family: var(--head); font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 1rem; }
+    .quiz-options { display: grid; gap: 0.6rem; }
+    .quiz-opt {
+      border: 1px solid var(--line); border-radius: 12px;
+      background: var(--panel); color: var(--text);
+      padding: 0.75rem 1rem; text-align: left; width: 100%;
+      font-size: 0.93rem; line-height: 1.4;
+      transition: border-color 180ms, background 180ms;
+    }
+    .quiz-opt:focus { outline: 2px solid var(--teal); outline-offset: 2px; }
+    .quiz-opt:hover:not(:disabled) { border-color: rgba(26,223,176,.5); background: var(--teal-dim); }
+    .quiz-opt.correct { border-color: var(--teal); background: rgba(26,223,176,.18); color: var(--text); }
+    .quiz-opt.correct::after { content: " ✓"; color: var(--teal); font-weight: 800; }
+    .quiz-opt.wrong { border-color: #E05A6A; background: rgba(224,90,106,.15); color: var(--text); }
+    .quiz-opt.wrong::after { content: " ✗"; color: #E05A6A; font-weight: 800; }
+    .quiz-feedback {
+      margin-top: 0.9rem; padding: 0.85rem 1rem;
+      border-radius: 12px; font-size: 0.93rem; display: none;
+    }
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.pass { background: rgba(26,223,176,.12); border: 1px solid rgba(26,223,176,.35); color: #C0E8D8; }
+    .quiz-feedback.fail { background: rgba(224,90,106,.12); border: 1px solid rgba(224,90,106,.3); color: #F0AAAA; }
+    .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; flex-wrap: wrap; gap: 0.6rem; }
+    .quiz-progress { color: var(--muted); font-family: var(--head); font-size: 0.85rem; font-weight: 700; }
+    .quiz-score-box {
+      text-align: center; padding: 2rem;
+      border: 1px solid var(--line); border-radius: 16px;
+      background: var(--surface); margin-top: 1rem;
+    }
+    .quiz-score-box .score-num { font-family: var(--head); font-size: 3.5rem; font-weight: 800; color: var(--teal); line-height: 1; }
+    .quiz-score-box .score-label { color: var(--muted); font-size: 1rem; margin-top: 0.4rem; }
+    .quiz-score-box .score-msg { color: var(--text); font-size: 1.05rem; margin-top: 0.8rem; font-weight: 600; }
+
+    @media (max-width: 900px) {
+      .two-col, .ml-grid { grid-template-columns: 1fr; }
+      .agent-loop, .trainer-grid { grid-template-columns: repeat(2,1fr); }
+      .nav-links { display: none; }
+      .video-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      section { padding: 5rem 1rem; }
+      .agent-loop, .trainer-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 2.4rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main" style="position:absolute;top:-50px;left:1rem;background:var(--teal);color:#0B1623;padding:.5rem .9rem;border-radius:999px;z-index:30;font-weight:800;font-size:.88rem;text-decoration:none;" onfocus="this.style.top='1rem'" onblur="this.style.top='-50px'">Skip to main content</a>
+
+<nav class="site-nav" aria-label="Lunch and learn navigation">
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-dot" aria-hidden="true"></span>AI Essentials &nbsp;<span class="badge">Class 1</span></div>
+    <nav class="nav-links" aria-label="Page sections">
+      <a href="#layers">AI Layers</a>
+      <a href="#ml-types">ML Types</a>
+      <a href="#how-llms-work">How LLMs Work</a>
+      <a href="#tools">RAG &amp; Tools</a>
+      <a href="#quickdraw">Quick, Draw!</a>
+      <a href="#videos">Videos</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#takeaways">Takeaways</a>
+    </nav>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section id="top" aria-labelledby="hero-heading" style="min-height:calc(100vh - 56px);">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="eyebrow">Lunch &amp; Learn &middot; UMBC C4AI AI Essentials</div>
+        <h1 id="hero-heading">What I Learned<br>About AI.</h1>
+        <p class="lead">A 25-minute walkthrough of Class 1 highlights — how AI actually works, and what it means for us at work.</p>
+        <p>We'll cover the AI family tree, how machines learn from data, what LLMs are really doing under the hood, and where tools like Copilot and RAG fit in.</p>
+        <div class="note" style="max-width:600px;">
+          <span class="note-label">Learner promise</span>
+          <p>By the end you'll be able to explain what an LLM is, why it sometimes gets things wrong, and where your judgment still matters most.</p>
+        </div>
+        <div class="scroll-cue" aria-hidden="true"><span class="mouse"></span><span>Scroll to begin</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT I: THE AI FAMILY TREE -->
+  <section id="layers" aria-labelledby="layers-heading">
+    <div class="section-inner two-col">
+      <div class="reveal">
+        <div class="eyebrow">Act I &middot; The Family Tree</div>
+        <h2 id="layers-heading">AI is a family of related ideas, not one thing.</h2>
+        <div class="teal-line" aria-hidden="true"></div>
+        <p>The class opened by zooming in layer by layer. Each term below is more specific than the one before it. This mental model makes the whole topic less blurry.</p>
+        <p>The instructor's framing that stuck with me: <strong>"GenAI is very, very, very powerful auto-complete."</strong> Not a dismissal — a useful anchor.</p>
+        <div class="note">
+          <span class="note-label">Key insight from class</span>
+          <p>AI has been around since the 1950s. What changed recently was scale — more data, more compute, and a 2017 architecture breakthrough called the Transformer.</p>
+        </div>
+        <div class="misconception">
+          <span class="note-label">Common misconception</span>
+          <p>LLMs don't "understand" language. They find statistical patterns in trillions of words and predict what comes next. Fluent output does not equal verified truth.</p>
+        </div>
+      </div>
+
+      <div class="glass reveal">
+        <p style="color:var(--muted);font-size:.9rem;margin:0 0 1rem;">Click each layer to explore</p>
+        <div class="layer-stack" role="group" aria-label="AI layer explorer">
+          <button class="layer-btn active" data-layer="ai"><strong>Artificial Intelligence</strong><span>The broad umbrella — machines that imitate human thinking.</span></button>
+          <button class="layer-btn" data-layer="ml"><strong>Machine Learning</strong><span>Learns patterns from data instead of following hard-coded rules.</span></button>
+          <button class="layer-btn" data-layer="dl"><strong>Deep Learning</strong><span>ML using layered neural networks — the engine behind modern AI.</span></button>
+          <button class="layer-btn" data-layer="llm"><strong>Large Language Models</strong><span>Deep learning trained on vast text to predict and generate language.</span></button>
+          <button class="layer-btn" data-layer="genai"><strong>Generative AI</strong><span>Models that produce text, images, audio, video, and code on demand.</span></button>
+        </div>
+        <div class="explain-box" aria-live="polite" aria-atomic="true" style="margin-top:1.2rem;">
+          <h3 id="layer-title">Artificial Intelligence</h3>
+          <p id="layer-copy">Any technique enabling computers to mimic human behavior — from chess programs to chatbots to self-driving cars. It's the broadest category. Narrow AI (like ChatGPT) handles one context. General AI and Super AI don't exist yet.</p>
+          <div class="pill-row" id="layer-pills">
+            <span class="pill">broad umbrella</span><span class="pill">many subtypes</span><span class="pill">since the 1950s</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT II: HOW MACHINES LEARN -->
+  <section id="ml-types" aria-labelledby="ml-heading">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="eyebrow">Act II &middot; How Machines Learn</div>
+        <h2 id="ml-heading">There are four ways a model can learn.</h2>
+        <div class="teal-line" aria-hidden="true"></div>
+        <p>One of the most practical parts of the class. Each approach suits a different kind of problem — and knowing which is which helps you ask better questions about any AI tool.</p>
+      </div>
+
+      <div class="ml-grid reveal" role="list">
+        <div class="ml-card" role="listitem">
+          <strong>1 &middot; Supervised Learning</strong>
+          <p>Trains on labeled examples (input + correct answer). The model learns to map inputs to outputs.</p>
+          <p class="example">&rarr; Email spam filters &middot; X-ray tumor detection &middot; Price prediction</p>
+        </div>
+        <div class="ml-card" role="listitem">
+          <strong>2 &middot; Unsupervised Learning</strong>
+          <p>Finds hidden structure in unlabeled data. The model invents its own categories.</p>
+          <p class="example">&rarr; Customer segmentation &middot; Anomaly detection &middot; Topic clustering</p>
+        </div>
+        <div class="ml-card" role="listitem">
+          <strong>3 &middot; Semi-Supervised Learning</strong>
+          <p>A small amount of labeled data guides pattern discovery in a much larger unlabeled set.</p>
+          <p class="example">&rarr; Fraud detection &middot; Network intrusion &middot; Medical imaging</p>
+        </div>
+        <div class="ml-card" role="listitem">
+          <strong>4 &middot; Reinforcement Learning</strong>
+          <p>An agent learns by trial and error — rewarded for correct moves, penalized for wrong ones.</p>
+          <p class="example">&rarr; AlphaGo &middot; Self-driving cars &middot; Training ChatGPT (RLHF)</p>
+        </div>
+      </div>
+
+      <div class="two-col reveal" style="margin-top:3.5rem;" aria-labelledby="activity-heading">
+        <div>
+          <h3 id="activity-heading">Try the training data activity</h3>
+          <p>A streaming service wants to learn which content you like. Select examples — clean signals improve the model quality; noisy ones hurt it.</p>
+          <div class="trainer-grid" role="group" aria-label="Training data selector">
+            <button class="train-card" data-quality="good" data-feedback="Clear signal: bingeing several episodes in one night is a strong positive label for the model."><strong>Watched 4 episodes in one night</strong><span>Interested</span></button>
+            <button class="train-card" data-quality="good" data-feedback="Clear signal: stopping at 2 minutes is a reliable negative label."><strong>Stopped after 2 minutes</strong><span>Not interested</span></button>
+            <button class="train-card" data-quality="good" data-feedback="Useful signal: rewatching the trailer twice suggests real curiosity before committing."><strong>Rewatched the trailer twice</strong><span>Interested</span></button>
+            <button class="train-card" data-quality="noisy" data-feedback="Noisy: autoplay kept running while the person was in another room. That's not real viewing data."><strong>Autoplay ran while they were away</strong><span>Noisy signal</span></button>
+            <button class="train-card" data-quality="risky" data-feedback="Risky assumption: a kids' show on an adult profile might have been watched by a child, not the account holder."><strong>One kids' show on adult profile</strong><span>Risky assumption</span></button>
+            <button class="train-card" data-quality="good" data-feedback="Good negative label: an accidental click with immediate exit is a clean 'not interested' signal."><strong>Clicked by accident and left</strong><span>Not interested</span></button>
+          </div>
+          <div class="meter" role="progressbar" aria-label="Signal quality" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100" id="meterEl">
+            <div class="meter-fill" id="signalFill"></div>
+          </div>
+          <p class="small-label" id="signalLabel" aria-live="polite">Signal quality: 18%</p>
+          <div class="feedback-box" id="trainFeedback" aria-live="polite" role="status">Select examples above to build the training set.</div>
+        </div>
+        <div>
+          <div class="note">
+            <span class="note-label">What this illustrates</span>
+            <p>ML doesn't run on rules — it runs on examples. The quality of training data directly determines prediction quality. Garbage in, garbage out.</p>
+          </div>
+          <div class="misconception">
+            <span class="note-label">The model doesn't "know" you</span>
+            <p>It finds statistical patterns in past behavior and projects them forward. It has no idea what you actually value — only what you clicked.</p>
+          </div>
+          <div class="note" style="margin-top:1rem;">
+            <span class="note-label">Data quality checklist (from class)</span>
+            <p><strong>A.</strong> Can it be used? (available, accessible)<br>
+            <strong>B.</strong> Should it be used? (privacy, laws, regulations)<br>
+            <strong>C.</strong> Is it high quality? (relevant, recent, unbiased)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT III: HOW LLMs WORK -->
+  <section id="how-llms-work" aria-labelledby="llm-heading">
+    <div class="section-inner two-col">
+      <div class="reveal">
+        <div class="eyebrow">Act III &middot; Inside an LLM</div>
+        <h2 id="llm-heading">LLMs predict what comes next, one token at a time.</h2>
+        <div class="teal-line" aria-hidden="true"></div>
+        <p>An LLM is not retrieving a stored answer from a database. It's doing probability-weighted next-token prediction based on patterns from trillions of words of training data.</p>
+        <p>The key 2017 breakthrough was the <strong>Transformer</strong> — a neural network that can compare all parts of a sentence simultaneously (not word by word), enabling it to understand long-range relationships in text.</p>
+
+        <div class="timeline" aria-label="Key AI milestones">
+          <div class="timeline-item"><span class="timeline-year">1943</span><span class="timeline-text">Perceptron invented — the first artificial neuron, modeled on the brain</span></div>
+          <div class="timeline-item"><span class="timeline-year">1986</span><span class="timeline-text">Backpropagation unlocks real neural network training (Geoffrey Hinton)</span></div>
+          <div class="timeline-item"><span class="timeline-year">2006</span><span class="timeline-text">Hinton coins "Deep Learning" — computers learn to recognize image patterns</span></div>
+          <div class="timeline-item"><span class="timeline-year">2017</span><span class="timeline-text">"Attention is all you need" — the Transformer architecture is born at Google</span></div>
+          <div class="timeline-item"><span class="timeline-year">2020</span><span class="timeline-text">GPT-3: 175 billion parameters, trained on ~10 trillion words</span></div>
+          <div class="timeline-item"><span class="timeline-year">2022</span><span class="timeline-text">ChatGPT launches publicly — 1 million users in 5 days</span></div>
+        </div>
+
+        <div class="misconception" style="margin-top:1.3rem;">
+          <span class="note-label">Hallucination is structural, not a bug</span>
+          <p>Because LLMs generate the statistically likely next token, they can produce fluent, confident-sounding text that is factually wrong. Always verify important claims from an AI output.</p>
+        </div>
+      </div>
+
+      <div class="glass reveal">
+        <h3 style="font-size:1.15rem;margin-bottom:0.3rem;">Next-token prediction demo</h3>
+        <p style="font-size:.92rem;">Type a phrase and see what the model thinks is statistically likely to come next.</p>
+        <label for="promptIn" style="display:block;color:var(--muted);font-size:.88rem;margin:0.9rem 0 0.4rem;font-weight:600;">Your starting phrase</label>
+        <input class="prompt-input" id="promptIn" type="text" value="The security risk is" aria-label="Starting phrase for token prediction" />
+        <div class="token-suggestions" id="tokenSuggestions" aria-live="polite" aria-label="Token predictions"></div>
+        <div class="note" style="margin-top:1.1rem;">
+          <span class="note-label">What this shows</span>
+          <p>The model isn't choosing the "true" next word. It's ranking statistically likely continuations based on patterns from training data — nothing more.</p>
+        </div>
+        <div class="source-note">
+          <p>&#128218; From class: GPT-3 trained on ~10 trillion tokens using 10,000 Nvidia V100 GPUs. Estimated training cost for GPT-4: $50&ndash;100M+.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT IV: RAG & TOOLS -->
+  <section id="tools" aria-labelledby="tools-heading">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="eyebrow">Act IV &middot; Making LLMs Useful at Work</div>
+        <h2 id="tools-heading">Raw LLMs need context, tools, and guardrails.</h2>
+        <div class="teal-line" aria-hidden="true"></div>
+        <p>A bare LLM only knows what was in its training data, which has a cutoff date and no access to your organization's documents or current policies. These techniques close that gap.</p>
+      </div>
+
+      <div class="ml-grid reveal" style="margin-top:1.5rem;" role="list">
+        <div class="ml-card" role="listitem">
+          <strong>RAG &middot; Retrieval-Augmented Generation</strong>
+          <p>Before generating a response, the system searches a trusted knowledge base (your documents, policies, databases) and feeds relevant results to the LLM as context.</p>
+          <p class="example">&rarr; Reduces hallucinations &middot; No retraining needed &middot; Cites sources &middot; Works with internal docs</p>
+        </div>
+        <div class="ml-card" role="listitem">
+          <strong>Fine-Tuning</strong>
+          <p>Continues training an existing LLM on your domain-specific data so it bakes in your vocabulary, policies, and style.</p>
+          <p class="example">&rarr; More consistent responses &middot; Expensive &middot; Static — doesn't auto-update when policies change</p>
+        </div>
+        <div class="ml-card" role="listitem">
+          <strong>Microsoft 365 Copilot</strong>
+          <p>ChatGPT embedded in Word, Outlook, Teams, Excel, and PowerPoint — connected to your Microsoft Graph data via RAG.</p>
+          <p class="example">&rarr; Draft emails &middot; Summarize threads &middot; Analyze spreadsheet data &middot; Generate slides from a Word doc</p>
+        </div>
+        <div class="ml-card" role="listitem">
+          <strong>Answer Engines (Perplexity, Google AI Mode)</strong>
+          <p>Unlike a search engine (gives links) or base ChatGPT (uses training data only), answer engines retrieve live sources and synthesize a cited response.</p>
+          <p class="example">&rarr; Research and fact-checking &middot; Up-to-date stats &middot; Not ideal for creative writing or coding</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:2.5rem;">
+        <h3>The agent loop — AI that keeps working</h3>
+        <p>The class also introduced <strong>agents</strong>: AI systems that don't just answer once but cycle through steps until a goal is reached or a human review point is hit.</p>
+        <div class="agent-loop" id="agentLoop" role="list">
+          <div class="loop-step active" role="listitem"><div class="loop-num" aria-hidden="true">1</div><strong>Look</strong><p>Read the request and gather what's needed.</p></div>
+          <div class="loop-step" role="listitem"><div class="loop-num" aria-hidden="true">2</div><strong>Decide</strong><p>Choose the next useful step toward the goal.</p></div>
+          <div class="loop-step" role="listitem"><div class="loop-num" aria-hidden="true">3</div><strong>Do</strong><p>Use a tool, search, draft, summarize, or update.</p></div>
+          <div class="loop-step" role="listitem"><div class="loop-num" aria-hidden="true">4</div><strong>Check</strong><p>Review the result — stop, revise, or continue.</p></div>
+        </div>
+        <div class="btn-row">
+          <button class="button primary" id="runLoop">Run the Loop</button>
+          <button class="button" id="resetLoop">Reset</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK DRAW ACTIVITY -->
+  <section id="quickdraw" aria-labelledby="qd-heading">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="eyebrow">Hands-On Activity &middot; Try It Yourself</div>
+        <h2 id="qd-heading">You're about to train an AI — right now.</h2>
+        <div class="teal-line" aria-hidden="true"></div>
+        <p>Google's Quick, Draw! is a neural network that guesses what you're drawing. Every sketch you submit becomes a labeled training example that makes the model smarter for the next person. Over 50 million people have contributed more than 1 billion drawings.</p>
+        <p>This is <strong>supervised learning happening in real time</strong> — you're the labeler, and the model is updating from your data.</p>
+      </div>
+
+      <div class="two-col reveal" style="margin-top:2rem; align-items:start; gap:2.5rem;">
+        <div>
+          <div class="qd-frame-wrap" id="qdWrap">
+            <div class="qd-overlay" id="qdOverlay">
+              <div class="qd-icon" aria-hidden="true">✏️</div>
+              <h3>Quick, Draw!</h3>
+              <p>You'll have 20 seconds to draw each prompt. The AI guesses as you draw — watch how it reasons through incomplete information.</p>
+              <div class="qd-steps">
+                <div class="qd-step"><strong>Step 1</strong><span>Click Launch and draw when prompted</span></div>
+                <div class="qd-step"><strong>Step 2</strong><span>Watch the AI guess in real time</span></div>
+                <div class="qd-step"><strong>Step 3</strong><span>Your sketch joins 1B+ training examples</span></div>
+              </div>
+              <div class="qd-tag-row">
+                <span class="pill">supervised learning</span>
+                <span class="pill">crowdsourced labels</span>
+                <span class="pill">neural network</span>
+                <span class="pill">live training data</span>
+              </div>
+              <button class="button primary" id="qdLaunch" style="margin-top:0.5rem; font-size:1rem; padding: 0.8rem 1.8rem;">
+                Launch Quick, Draw! ↗
+              </button>
+              <p style="font-size:0.8rem; color:var(--muted); margin:0;">Opens in a new tab — come back and discuss after a round!</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-size:1.15rem; margin-bottom:0.8rem;">What to notice while you play</h3>
+
+          <div class="note" style="margin-top:0;">
+            <span class="note-label">The AI guesses before you finish</span>
+            <p>It's doing classification on incomplete data — the same way a model might flag a suspicious transaction before a full pattern emerges. It's not waiting for certainty.</p>
+          </div>
+
+          <div class="note" style="margin-top:0.9rem;">
+            <span class="note-label">Your drawing becomes training data</span>
+            <p>When the AI guesses correctly and you confirm, that sketch gets labeled and folded into the dataset. You just contributed to a supervised learning model — exactly what the class described.</p>
+          </div>
+
+          <div class="misconception" style="margin-top:0.9rem;">
+            <span class="note-label">It doesn't "see" like you do</span>
+            <p>The model learned from millions of labeled sketches. It's matching pixel patterns to known categories — not understanding what a cat or a bicycle "means." A slightly unusual drawing can completely fool it.</p>
+          </div>
+
+          <div class="source-note" style="margin-top:0.9rem;">
+            <p>&#128218; The Quick, Draw! dataset is publicly available. Researchers use it to study how humans draw, how neural networks generalize, and how cultural differences affect sketching patterns across 15+ languages.</p>
+          </div>
+
+          <div class="note" style="margin-top:0.9rem;">
+            <span class="note-label">Discussion question for the table</span>
+            <p>If the AI gets your drawing wrong — whose "fault" is it? Yours for drawing differently than most people? Or the training data for not including your style? What does that mean for AI systems we use at work?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section id="videos" aria-labelledby="videos-heading">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="eyebrow">See It In Action &middot; From the Slides</div>
+        <h2 id="videos-heading">Reinforcement Learning in 90 seconds.</h2>
+        <div class="teal-line" aria-hidden="true"></div>
+        <p>The instructor showed these short clips to illustrate how reinforcement learning actually works — an agent making thousands of mistakes until it figures out the right behavior, with no one ever writing a rule about <em>how</em> to jump or dodge.</p>
+      </div>
+
+      <div class="video-grid reveal">
+        <div class="video-card">
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/hgjsLmFSkxo"
+              title="AI Learns Insane Way to Jump (YouTube, 0:48)"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+          <div class="video-label">
+            <strong>AI Learns Insane Way to Jump</strong>
+            <span>0:48 &middot; Reinforcement Learning in action — no rules, just rewards</span>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/LXosuQEOLn0"
+              title="AI Learns to Dodge (YouTube, 0:39)"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+          <div class="video-label">
+            <strong>AI Learns to Dodge</strong>
+            <span>0:39 &middot; Watch the agent fail repeatedly before it figures it out</span>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/WXuK6gekU1Y"
+              title="AlphaGo — The Movie (DeepMind)"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+          <div class="video-label">
+            <strong>AlphaGo vs. Lee Sedol</strong>
+            <span>Also from the slides &middot; Deep Learning beats the world Go champion in 2016</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="note reveal" style="margin-top:1.5rem;max-width:700px;">
+        <span class="note-label">Why the instructor showed these</span>
+        <p>These clips make the abstract concrete: the agent isn't following a programmed strategy. It's exploring, failing, getting a reward signal, and slowly converging on behavior that works — the same loop behind RLHF, which is how ChatGPT was fine-tuned on human preferences.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" aria-labelledby="quiz-heading">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="eyebrow">Knowledge Check &middot; 6 Questions</div>
+        <h2 id="quiz-heading">Test what stuck.</h2>
+        <div class="teal-line" aria-hidden="true"></div>
+        <p>Based directly on the Class 1 material. No trick questions — just a quick check on the core concepts before we move to Prompt Engineering next session.</p>
+      </div>
+
+      <div class="reveal" style="max-width:720px;margin-top:1.5rem;">
+        <div id="quizContainer">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT V: SYNTHESIS -->
+  <section id="takeaways" aria-labelledby="synth-heading" style="text-align:center;">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="eyebrow" style="justify-content:center;">Act V &middot; Synthesis</div>
+        <h2 id="synth-heading">Now the pieces connect.</h2>
+        <div class="teal-line" style="margin:1.1rem auto;" aria-hidden="true"></div>
+        <p class="lead" style="margin-left:auto;margin-right:auto;">AI is not magic — it's a layered system that learns patterns, predicts language, and becomes genuinely useful when paired with context, tools, and human judgment.</p>
+      </div>
+
+      <div class="synth-map reveal" role="list" aria-label="AI concept summary">
+        <div class="synth-item" role="listitem"><span class="synth-label">Artificial Intelligence</span><span class="synth-arrow">broad umbrella &middot; mimics human behavior</span></div>
+        <div class="synth-item" role="listitem"><span class="synth-label">Machine Learning</span><span class="synth-arrow">learns patterns from labeled examples</span></div>
+        <div class="synth-item" role="listitem"><span class="synth-label">Deep Learning</span><span class="synth-arrow">layered neural networks &middot; handles complexity</span></div>
+        <div class="synth-item" role="listitem"><span class="synth-label">Transformer / LLM</span><span class="synth-arrow">predicts tokens &middot; trained on trillions of words</span></div>
+        <div class="synth-item" role="listitem"><span class="synth-label">RAG + Fine-Tuning + Copilot</span><span class="synth-arrow">add context, recency, and workflow integration</span></div>
+        <div class="synth-item" role="listitem"><span class="synth-label">Human Judgment</span><span class="synth-arrow">sets goals &middot; verifies output &middot; decides what's useful</span></div>
+      </div>
+
+      <div class="note reveal" style="max-width:640px;margin:2rem auto 0;text-align:left;">
+        <span class="note-label">Three reminders from the instructor</span>
+        <p>
+          <strong>1.</strong> LLMs can hallucinate — always verify important information.<br>
+          <strong>2.</strong> The technology moves fast — new features drop weekly.<br>
+          <strong>3.</strong> Bias in training data becomes bias in outputs. It doesn't disappear on its own.
+        </p>
+      </div>
+
+      <div class="btn-row reveal" style="justify-content:center;margin-top:2rem;">
+        <a class="button primary" href="#top">Review Again</a>
+        <a class="button" href="#">&#8592; Back to Portfolio</a>
+      </div>
+
+      <p class="reveal" style="margin:2rem auto 0;font-size:.9rem;color:var(--muted);max-width:520px;">
+        Next session: <strong style="color:var(--teal);">Prompt Engineering</strong> — zero-shot, few-shot, chain-of-thought, and RAG-aware prompting techniques.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Based on UMBC Center for Applied AI &mdash; AI Essentials, Class 1 &middot; June 16, 2026<br>
+  Lunch &amp; Learn summary built as an interactive single-page learning experience.</p>
+</footer>
+
+<script>
+  // Add js-loaded class so reveal animation only runs when JS is available
+  document.documentElement.classList.add('js-loaded');
+
+  // Reveal on scroll — trigger immediately for above-fold elements
+  const revealEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => obs.observe(el));
+  // Also trigger any already-visible elements immediately
+  setTimeout(() => {
+    revealEls.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight) el.classList.add('visible');
+    });
+  }, 50);
+
+  // Layer explorer
+  const layers = {
+    ai:    { title:'Artificial Intelligence', copy:'Any technique enabling computers to mimic human behavior — chess programs, chatbots, self-driving cars, recommendation engines. It\'s the broadest category. Narrow AI (like ChatGPT) handles one context. General AI and Super AI don\'t exist yet.', pills:['broad umbrella','many subtypes','since the 1950s'] },
+    ml:    { title:'Machine Learning', copy:'Instead of programming every rule by hand, we show the system thousands of examples and let it find patterns itself. The model continuously improves with new data. ML is a subset of AI — not all AI uses ML. Traditional rule-based systems like IBM Deep Blue are AI but not ML.', pills:['learns from examples','pattern recognition','continuous improvement'] },
+    dl:    { title:'Deep Learning', copy:'A subfield of ML using neural networks with many stacked layers ("deep"). Inspired by the brain\'s neurons. Each layer extracts more abstract features. Geoffrey Hinton coined the term in 2006 and received the 2024 Nobel Prize in Physics for this work.', pills:['neural networks','many layers','GPUs required'] },
+    llm:   { title:'Large Language Models', copy:'Deep learning models trained on petabytes of text. They predict the next token (word fragment) based on everything before it. Scale unlocks "emergent" capabilities — tasks the model was never explicitly trained for. GPT-3 had 175 billion parameters; GPT-4 has over 1 trillion.', pills:['next-token prediction','billions of parameters','emergent abilities'] },
+    genai: { title:'Generative AI', copy:'Neural networks that create new content — text, images, audio, video, code — usually in response to a natural language prompt. GenAI is not new: ELIZA chatbot (1966), T9 text prediction (1995), Google Autocomplete (2008) are early forms. ChatGPT made it feel new because of its scale and fluency.', pills:['creates new content','text images video code','very powerful autocomplete'] }
+  };
+
+  document.querySelectorAll('.layer-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.layer-btn').forEach(b => { b.classList.remove('active'); b.removeAttribute('aria-pressed'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      const d = layers[btn.dataset.layer];
+      document.getElementById('layer-title').textContent = d.title;
+      document.getElementById('layer-copy').textContent = d.copy;
+      document.getElementById('layer-pills').innerHTML = d.pills.map(p => `<span class="pill">${p}</span>`).join('');
+    });
+  });
+
+  // Training data activity
+  let signalQ = 18;
+  const scores = { good: 13, noisy: -10, risky: -8 };
+  document.querySelectorAll('.train-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('selected');
+      const wasSelected = card.classList.contains('selected');
+      card.setAttribute('aria-pressed', wasSelected ? 'true' : 'false');
+      const q = card.dataset.quality;
+      const delta = scores[q] || 0;
+      signalQ += wasSelected ? delta : -delta;
+      signalQ = Math.max(8, Math.min(96, signalQ));
+      document.getElementById('signalFill').style.width = `${signalQ}%`;
+      document.getElementById('signalLabel').textContent = `Signal quality: ${signalQ}%`;
+      document.getElementById('meterEl').setAttribute('aria-valuenow', signalQ);
+      const pfx = q === 'good' ? '✓ Added.' : '⚠ Caution.';
+      document.getElementById('trainFeedback').textContent = `${pfx} ${card.dataset.feedback}`;
+    });
+    card.setAttribute('aria-pressed', 'false');
+  });
+
+  // Token predictor
+  const promptIn = document.getElementById('promptIn');
+  const tokenSug = document.getElementById('tokenSuggestions');
+  function updateTokens() {
+    const v = promptIn.value.toLowerCase();
+    let s = [['significant','34%'],['unclear','27%'],['increasing','18%']];
+    if (v.includes('security')) s = [['critical','38%'],['escalating','26%'],['manageable','17%']];
+    else if (v.includes('ai') || v.includes('model')) s = [['improving','31%'],['uncertain','25%'],['context-dependent','19%']];
+    else if (v.includes('data')) s = [['compromised','33%'],['incomplete','28%'],['encrypted','16%']];
+    else if (v.includes('user')) s = [['error','29%'],['training','24%'],['behavior','18%']];
+    else if (v.includes('threat')) s = [['detected','41%'],['unknown','22%'],['escalating','15%']];
+    tokenSug.innerHTML = s.map(([t,p]) =>
+      `<div class="token-choice"><span>Next likely token: <strong>${t}</strong></span><span class="prob">${p}</span></div>`
+    ).join('');
+  }
+  promptIn.addEventListener('input', updateTokens);
+  updateTokens();
+
+  // Agent loop
+  const steps = document.querySelectorAll('.loop-step');
+  let loopTimer = null;
+  function setStep(i) {
+    steps.forEach((s, j) => {
+      s.classList.toggle('active', j === i);
+      s.setAttribute('aria-current', j === i ? 'step' : 'false');
+    });
+  }
+  document.getElementById('runLoop').addEventListener('click', () => {
+    clearInterval(loopTimer);
+    let i = 0; setStep(i);
+    loopTimer = setInterval(() => { i = (i + 1) % steps.length; setStep(i); }, 1800);
+  });
+  document.getElementById('resetLoop').addEventListener('click', () => {
+    clearInterval(loopTimer); setStep(0);
+  });
+  // ── QUICK DRAW ────────────────────────────────────────────────────────────
+  document.getElementById('qdLaunch').addEventListener('click', () => {
+    window.open('https://quickdraw.withgoogle.com/', '_blank', 'noopener,noreferrer');
+  });
+
+  // ── QUIZ ──────────────────────────────────────────────────────────────────
+  const questions = [
+    {
+      q: "Which of these best describes Machine Learning?",
+      opts: [
+        "A set of hand-coded rules that a programmer writes for every situation",
+        "A system that finds patterns in data and improves its predictions over time",
+        "A robot that physically interacts with the real world",
+        "Any software program that runs on a computer"
+      ],
+      correct: 1,
+      explain: "Machine Learning learns from examples rather than following explicit rules. The key shift: from writing every rule by hand to letting the system infer patterns from data."
+    },
+    {
+      q: "An agent trained to play chess by playing millions of games against itself, with wins rewarded and losses penalized, is using which type of learning?",
+      opts: [
+        "Supervised Learning",
+        "Unsupervised Learning",
+        "Reinforcement Learning",
+        "Semi-Supervised Learning"
+      ],
+      correct: 2,
+      explain: "Reinforcement Learning uses a reward/penalty loop — the agent explores, makes mistakes, and converges on behavior that maximizes rewards. AlphaZero learned chess this way in 34 hours."
+    },
+    {
+      q: "What is a 'hallucination' in the context of an LLM?",
+      opts: [
+        "When the model refuses to answer a question",
+        "When the model generates fluent, confident-sounding text that is factually wrong",
+        "When the model runs too slowly due to compute limits",
+        "When the model repeats the same sentence multiple times"
+      ],
+      correct: 1,
+      explain: "Because LLMs predict statistically likely next tokens, they can produce plausible-sounding text that is simply wrong. Fluent output does not equal verified truth — always check important claims."
+    },
+    {
+      q: "RAG stands for Retrieval-Augmented Generation. What problem does it primarily solve?",
+      opts: [
+        "Making the model respond faster",
+        "Teaching the model a new language",
+        "Grounding LLM responses in trusted, up-to-date documents rather than stale training data",
+        "Reducing the number of tokens in a prompt"
+      ],
+      correct: 2,
+      explain: "RAG searches a knowledge base (your documents, policies, databases) before the LLM generates a response — anchoring answers in current, verifiable content and reducing hallucinations."
+    },
+    {
+      q: "The 2017 paper 'Attention Is All You Need' introduced which architecture?",
+      opts: [
+        "Convolutional Neural Network (CNN)",
+        "Recurrent Neural Network (RNN)",
+        "Transformer",
+        "Long Short-Term Memory (LSTM)"
+      ],
+      correct: 2,
+      explain: "The Transformer architecture, introduced by 8 Google Brain scientists, enabled models to compare all parts of a sequence simultaneously — the foundation of GPT, Claude, Gemini, and every modern LLM."
+    },
+    {
+      q: "A hospital uses a model to detect tumors in X-rays. Each training image is labeled 'tumor' or 'no tumor.' Which learning type is this?",
+      opts: [
+        "Unsupervised Learning",
+        "Reinforcement Learning",
+        "Supervised Learning",
+        "Transfer Learning"
+      ],
+      correct: 2,
+      explain: "Supervised Learning trains on labeled examples (input + correct answer). Labeled medical images are a classic use case — the model learns to map pixel patterns to a classification output."
+    }
+  ];
+
+  let current = 0, score = 0, answered = false;
+
+  function renderQuestion() {
+    const q = questions[current];
+    const container = document.getElementById('quizContainer');
+    container.innerHTML = `
+      <div class="quiz-card">
+        <div class="quiz-progress">Question ${current + 1} of ${questions.length}</div>
+        <p class="quiz-question" style="margin-top:.6rem;">${q.q}</p>
+        <div class="quiz-options" role="group" aria-label="Answer options">
+          ${q.opts.map((opt, i) => `
+            <button class="quiz-opt" data-index="${i}" aria-pressed="false">${opt}</button>
+          `).join('')}
+        </div>
+        <div class="quiz-feedback" id="qfeedback" role="status" aria-live="polite"></div>
+        <div class="quiz-nav">
+          <span class="quiz-progress" id="scoreDisplay">Score: ${score} / ${questions.length}</span>
+          <button class="button primary" id="nextBtn" style="display:none;">${current < questions.length - 1 ? 'Next Question →' : 'See Results'}</button>
+        </div>
+      </div>
+    `;
+    answered = false;
+    document.querySelectorAll('.quiz-opt').forEach(btn => {
+      btn.addEventListener('click', () => selectAnswer(parseInt(btn.dataset.index)));
+    });
+  }
+
+  function selectAnswer(idx) {
+    if (answered) return;
+    answered = true;
+    const q = questions[current];
+    const opts = document.querySelectorAll('.quiz-opt');
+    const fb = document.getElementById('qfeedback');
+    opts.forEach(b => b.disabled = true);
+    opts[idx].classList.add(idx === q.correct ? 'correct' : 'wrong');
+    if (idx !== q.correct) opts[q.correct].classList.add('correct');
+    if (idx === q.correct) score++;
+    fb.textContent = (idx === q.correct ? '✓ Correct! ' : '✗ Not quite. ') + q.explain;
+    fb.className = 'quiz-feedback show ' + (idx === q.correct ? 'pass' : 'fail');
+    document.getElementById('scoreDisplay').textContent = `Score: ${score} / ${questions.length}`;
+    document.getElementById('nextBtn').style.display = 'inline-flex';
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      current++;
+      if (current < questions.length) renderQuestion();
+      else showResults();
+    });
+  }
+
+  function showResults() {
+    const pct = Math.round((score / questions.length) * 100);
+    const msgs = [
+      [6, "Perfect score! You've clearly got the concepts down cold."],
+      [5, "Strong work — you have a solid grasp of the core ideas."],
+      [4, "Good foundation. A quick review of the sections you missed will lock it in."],
+      [0, "No worries — review the sections above and try again. These concepts take a pass or two."]
+    ];
+    const msg = msgs.find(([min]) => score >= min)[1];
+    document.getElementById('quizContainer').innerHTML = `
+      <div class="quiz-score-box">
+        <div class="score-num">${score}/${questions.length}</div>
+        <div class="score-label">${pct}% correct</div>
+        <div class="score-msg">${msg}</div>
+        <div class="btn-row" style="justify-content:center;margin-top:1.5rem;">
+          <button class="button primary" id="retryBtn">Try Again</button>
+          <a class="button" href="#takeaways">See Synthesis →</a>
+        </div>
+      </div>
+    `;
+    document.getElementById('retryBtn').addEventListener('click', () => {
+      current = 0; score = 0; renderQuestion();
+    });
+  }
+
+  renderQuestion();
+
+</script>
+
+</body>
+</html>
