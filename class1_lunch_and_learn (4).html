@@ -8,20 +8,21 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
     :root {
-      --bg:           #0B1623;
-      --bg-mid:       #0F1E30;
-      --surface:      #162840;
-      --panel:        #1A3050;
-      --text:         #F0F8FF;
-      --muted:        #A8C8E8;
-      --teal:         #1ADFB0;
-      --teal-dim:     rgba(26,223,176,.18);
-      --teal-glow:    rgba(26,223,176,.07);
-      --blue:         #4A8BE0;
-      --blue-dim:     rgba(74,139,224,.18);
-      --gold:         #F5CC60;
-      --line:         rgba(26,223,176,.15);
-      --shadow:       0 20px 60px rgba(0,0,0,.4);
+      --bg:           #FFFFFF;
+      --bg-mid:       #F8FAFB;
+      --surface:      #F4F7FA;
+      --panel:        #EBF0F5;
+      --text:         #1A2B3C;
+      --muted:        #4A6070;
+      --teal:         #09745A;
+      --teal-dim:     rgba(9,116,90,.10);
+      --teal-glow:    rgba(9,116,90,.05);
+      --blue:         #1A5FA8;
+      --blue-dim:     rgba(26,95,168,.10);
+      --gold:         #7A5200;
+      --gold-bg:      #FEF5DC;
+      --line:         rgba(9,116,90,.15);
+      --shadow:       0 4px 24px rgba(26,43,60,.08);
       --radius:       20px;
       --max:          1120px;
       --font:         'Inter', system-ui, -apple-system, sans-serif;
@@ -33,7 +34,10 @@
     body {
       margin: 0;
       font-family: var(--font);
-      background: var(--bg);
+      background:
+        radial-gradient(ellipse at top left, rgba(9,116,90,.04) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 10%, rgba(26,95,168,.05) 0%, transparent 35%),
+        #FFFFFF;
       color: var(--text);
       line-height: 1.65;
     }
@@ -43,7 +47,7 @@
     .site-nav {
       position: sticky; top: 0; z-index: 10;
       backdrop-filter: blur(14px);
-      background: rgba(11,22,35,.92);
+      background: rgba(255,255,255,.96); box-shadow: 0 1px 0 rgba(9,116,90,.12);
       border-bottom: 1px solid var(--line);
     }
     .nav-inner {
@@ -60,7 +64,7 @@
       background: var(--teal); box-shadow: 0 0 10px var(--teal); flex-shrink: 0;
     }
     .badge {
-      background: var(--teal-dim); border: 1px solid rgba(26,223,176,.4);
+      background: var(--teal-dim); border: 1px solid rgba(9,116,90,.35);
       color: var(--teal); border-radius: 999px; padding: 0.2rem 0.65rem;
       font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em;
     }
@@ -104,7 +108,7 @@
     p { color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.15rem); max-width: 720px; margin-top: 0.75rem; margin-bottom: 0; }
     strong { color: var(--text); }
     em { color: var(--muted); }
-    .lead { font-size: clamp(1.1rem, 2vw, 1.4rem); color: #C8DEFF; margin-top: 1.2rem; }
+    .lead { font-size: clamp(1.1rem, 2vw, 1.4rem); color: #1A4A7A; margin-top: 1.2rem; }
     .teal-line { width: 56px; height: 3px; background: var(--teal); border-radius: 999px; margin: 1.1rem 0; }
 
     /* LAYOUT */
@@ -112,7 +116,7 @@
 
     /* CARDS */
     .glass {
-      background: var(--panel); border: 1px solid var(--line);
+      background: var(--surface); border: 1px solid rgba(9,116,90,.18);
       border-radius: var(--radius); box-shadow: var(--shadow);
       padding: clamp(1.25rem, 3vw, 2rem);
     }
@@ -120,7 +124,7 @@
     /* CALLOUTS — all guaranteed to pass 4.5:1 */
     .note {
       border-left: 3px solid var(--teal);
-      background: rgba(26,223,176,.1);
+      background: rgba(9,116,90,.08);
       border-radius: 0 14px 14px 0;
       padding: 0.9rem 1.1rem; margin-top: 1.2rem;
     }
@@ -130,7 +134,7 @@
       text-transform: uppercase; letter-spacing: 0.08em;
       font-weight: 700; margin-bottom: 0.4rem;
     }
-    .note p { color: #C0E8D8; margin: 0; font-size: 0.97rem; }
+    .note p { color: #0B5C48; margin: 0; font-size: 0.97rem; }
 
     .misconception {
       border-left: 3px solid var(--gold);
@@ -139,19 +143,19 @@
       padding: 0.9rem 1.1rem; margin-top: 1rem;
     }
     .misconception .note-label { color: var(--gold); }
-    .misconception p { color: #ECD898; margin: 0; font-size: 0.97rem; }
+    .misconception p { color: #6B4000; margin: 0; font-size: 0.97rem; }
 
     .source-note {
       border-left: 3px solid var(--blue);
-      background: rgba(74,139,224,.12);
+      background: rgba(26,95,168,.1);
       border-radius: 0 14px 14px 0;
       padding: 0.75rem 1rem; margin-top: 1rem;
     }
-    .source-note p { color: #B8D4F8; margin: 0; font-size: 0.92rem; }
+    .source-note p { color: #1A4A7A; margin: 0; font-size: 0.92rem; }
 
     /* SCROLL CUE */
     .scroll-cue { display: inline-flex; align-items: center; gap: 0.65rem; margin-top: 2rem; color: var(--muted); font-size: 0.9rem; }
-    .mouse { width: 22px; height: 36px; border: 1.5px solid rgba(26,223,176,.5); border-radius: 999px; position: relative; }
+    .mouse { width: 22px; height: 36px; border: 1.5px solid rgba(9,116,90,.4); border-radius: 999px; position: relative; }
     .mouse::after {
       content: ""; position: absolute; top: 7px; left: 50%;
       width: 3px; height: 3px; transform: translateX(-50%);
@@ -167,10 +171,10 @@
     /* PILL ROW */
     .pill-row { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.9rem; }
     .pill {
-      border: 1px solid rgba(26,223,176,.3);
-      background: rgba(26,223,176,.08);
+      border: 1px solid rgba(9,116,90,.25);
+      background: rgba(9,116,90,.07);
       border-radius: 999px; padding: 0.3rem 0.7rem;
-      color: #A8E8D0; font-size: 0.84rem;
+      color: #09745A; font-size: 0.84rem;
     }
 
     /* LAYER EXPLORER */
@@ -188,7 +192,7 @@
     .layer-btn:hover, .layer-btn.active {
       transform: translateX(4px);
       background: var(--teal-dim);
-      border-color: rgba(26,223,176,.6);
+      border-color: rgba(9,116,90,.5);
     }
     .layer-btn.active strong { color: var(--teal); }
     .explain-box { min-height: 230px; display: grid; align-content: start; gap: 0.4rem; padding-top: 0.5rem; }
@@ -202,10 +206,10 @@
       background: var(--surface); padding: 1.1rem;
       transition: border-color 200ms, background 200ms;
     }
-    .ml-card:hover { border-color: rgba(26,223,176,.45); background: rgba(26,223,176,.06); }
+    .ml-card:hover { border-color: rgba(9,116,90,.35); background: rgba(9,116,90,.05); }
     .ml-card strong { display: block; font-family: var(--head); color: var(--teal); font-size: 0.92rem; margin-bottom: 0.4rem; }
     .ml-card p { margin: 0; font-size: 0.92rem; color: var(--muted); }
-    .ml-card .example { margin-top: 0.55rem; font-size: 0.84rem; color: #8ABCDC; font-style: italic; }
+    .ml-card .example { margin-top: 0.55rem; font-size: 0.84rem; color: #2A5C7A; font-style: italic; }
 
     /* TRAINING ACTIVITY */
     .trainer-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-top: 1rem; }
@@ -220,12 +224,12 @@
     .train-card span { color: var(--muted); font-size: 0.8rem; }
     .train-card:hover, .train-card.selected {
       transform: translateY(-2px);
-      border-color: rgba(26,223,176,.55);
+      border-color: rgba(9,116,90,.45);
       background: var(--teal-dim);
     }
     .train-card.selected strong { color: var(--teal); }
     .meter {
-      height: 10px; background: rgba(255,255,255,.07);
+      height: 10px; background: rgba(26,43,60,.07);
       border: 1px solid var(--line); border-radius: 999px;
       overflow: hidden; margin: 1rem 0 0.5rem;
     }
@@ -238,7 +242,7 @@
     .feedback-box {
       margin-top: 0.75rem; padding: 0.9rem 1rem;
       border: 1px solid var(--line); border-radius: 14px;
-      background: rgba(255,255,255,.04);
+      background: rgba(26,43,60,.03);
       color: var(--muted); font-size: 0.93rem; min-height: 58px;
     }
 
@@ -269,14 +273,14 @@
     }
     .loop-step.active {
       opacity: 1; transform: scale(1);
-      border-color: rgba(26,223,176,.55);
+      border-color: rgba(9,116,90,.45);
       background: var(--teal-dim);
-      box-shadow: 0 10px 30px rgba(26,223,176,.14);
+      box-shadow: 0 10px 30px rgba(9,116,90,.1);
     }
     .loop-num {
       width: 30px; height: 30px; border-radius: 50%;
       display: grid; place-items: center;
-      background: rgba(26,223,176,.2); margin-bottom: 0.7rem;
+      background: rgba(9,116,90,.12); margin-bottom: 0.7rem;
       font-family: var(--head); font-weight: 800;
       color: var(--teal); font-size: 0.9rem;
     }
@@ -310,11 +314,11 @@
     }
     .button:hover, .button:focus {
       transform: translateY(-1px); background: var(--teal-dim);
-      border-color: rgba(26,223,176,.6); color: var(--teal);
+      border-color: rgba(9,116,90,.5); color: var(--teal);
       outline: 2px solid var(--teal); outline-offset: 2px;
     }
-    .button.primary { background: var(--teal); border-color: transparent; color: #0B1623; font-weight: 800; }
-    .button.primary:hover { background: #2ef5c5; color: #0B1623; }
+    .button.primary { background: var(--teal); border-color: transparent; color: #FFFFFF; font-weight: 800; }
+    .button.primary:hover { background: #076C4C; color: #FFFFFF; }
 
     /* REVEAL — starts visible, then enhanced if JS runs */
     .reveal { opacity: 1; transform: none; }
@@ -366,6 +370,107 @@
     .qd-step span { color: var(--muted); }
     .qd-tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 0.3rem; }
 
+    /* OPENING WARM-UP */
+    .warmup-card {
+      margin-top: 1.5rem; max-width: 640px;
+      border: 2px solid rgba(9,116,90,.35);
+      border-radius: 18px; background: rgba(9,116,90,.05);
+      padding: 1.3rem 1.4rem;
+    }
+    .warmup-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.4rem; }
+    .warmup-badge {
+      background: var(--teal); color: #fff;
+      font-family: var(--head); font-weight: 700; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      border-radius: 999px; padding: 0.25rem 0.75rem;
+    }
+    .warmup-c {
+      font-family: var(--head); font-weight: 800; font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+    }
+    .warmup-q { color: var(--text); font-size: 1rem; margin: 0 0 0.9rem; line-height: 1.5; }
+    .warmup-options { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.9rem; }
+    .warmup-chip {
+      border: 1.5px solid rgba(9,116,90,.3); background: #fff;
+      color: var(--text); border-radius: 999px;
+      padding: 0.4rem 0.85rem; font-size: 0.9rem; font-family: var(--font);
+      transition: border-color 180ms, background 180ms, color 180ms, transform 150ms;
+    }
+    .warmup-chip:hover { border-color: var(--teal); background: rgba(9,116,90,.07); transform: translateY(-1px); }
+    .warmup-chip:focus { outline: 2px solid var(--teal); outline-offset: 2px; }
+    .warmup-chip.selected { border-color: var(--teal); background: var(--teal); color: #fff; font-weight: 700; }
+    .warmup-response {
+      min-height: 0; overflow: hidden;
+      transition: min-height 300ms ease;
+      font-size: 0.95rem; color: var(--teal); font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .warmup-response.show { min-height: 1.6rem; }
+    .warmup-hint { color: var(--muted); font-size: 0.88rem; margin: 0.9rem 0 0; }
+
+    /* ROUND ROBIN */
+    .robin-tracker { margin: 0.75rem 0 0.75rem; }
+    .robin-step-label { font-family: var(--head); font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 0.6rem; }
+    .robin-name-row, .robin-pass-row { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin-top: 0.5rem; }
+    .robin-name-input {
+      flex: 1; min-width: 180px;
+      border: 1.5px solid rgba(9,116,90,.35); border-radius: 10px;
+      background: #fff; color: var(--text);
+      padding: 0.55rem 0.85rem; font: inherit; font-size: 0.95rem;
+    }
+    .robin-name-input:focus { outline: 2px solid var(--teal); outline-offset: 2px; border-color: transparent; }
+    .robin-name-input::placeholder { color: var(--muted); opacity: 0.7; }
+    .robin-speaker-card {
+      background: var(--teal); border-radius: 14px;
+      padding: 1.1rem 1.3rem; margin-bottom: 1rem;
+      display: flex; flex-direction: column; gap: 0.25rem;
+    }
+    .robin-turn-label { font-family: var(--head); font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.09em; color: rgba(255,255,255,.75); }
+    .robin-speaker-name { font-family: var(--head); font-weight: 800; font-size: 1.6rem; color: #fff; line-height: 1.1; }
+    .robin-prompt { font-size: 0.92rem; color: rgba(255,255,255,.88); margin-top: 0.15rem; }
+    .robin-pass-row { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+    .robin-summary { padding: 1rem; border: 1px solid rgba(9,116,90,.25); border-radius: 14px; background: rgba(9,116,90,.05); }
+    .robin-summary-title { font-family: var(--head); font-weight: 700; color: var(--teal); margin-bottom: 0.75rem; font-size: 1rem; }
+    .robin-log { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.4rem; }
+    .robin-log li { font-size: 0.92rem; color: var(--text); display: flex; align-items: baseline; gap: 0.5rem; }
+    .robin-log li::before { content: "\2713"; color: var(--teal); font-weight: 800; flex-shrink: 0; }
+    .robin-log .log-tool { color: var(--muted); font-size: 0.85rem; }
+
+    /* COMMITMENT INPUT */
+    .commit-input {
+      flex: 1; min-width: 200px;
+      border: 1.5px solid rgba(9,116,90,.4); border-radius: 10px;
+      background: #fff; color: var(--text);
+      padding: 0.55rem 0.85rem; font: inherit; font-size: 0.95rem;
+    }
+    .commit-input:focus { outline: 2px solid var(--teal); outline-offset: 2px; border-color: transparent; }
+    .commit-input::placeholder { color: var(--muted); opacity: 0.7; }
+    .commit-echo {
+      margin: 0.75rem 0 0; padding: 0.75rem 1rem;
+      border-radius: 10px; border: 1px solid rgba(9,116,90,.3);
+      background: rgba(9,116,90,.08); color: var(--teal);
+      font-size: 0.95rem; font-weight: 600;
+    }
+
+    /* BACK OF THE ROOM REFLECTION */
+    .botr-card {
+      border: 1px solid var(--line); border-radius: 16px;
+      background: var(--surface); padding: 1.2rem 1.3rem;
+    }
+    .botr-q {
+      color: var(--text); font-size: 1rem; font-weight: 600;
+      margin: 0 0 0.8rem; line-height: 1.5;
+    }
+    .botr-input {
+      width: 100%; min-height: 90px; resize: vertical;
+      border: 1px solid var(--line); border-radius: 12px;
+      background: var(--panel); color: var(--text);
+      padding: 0.75rem 0.9rem; font: inherit; font-size: 0.95rem;
+      line-height: 1.55; transition: border-color 180ms;
+    }
+    .botr-input:focus { outline: 2px solid var(--teal); outline-offset: 2px; border-color: transparent; }
+    .botr-input::placeholder { color: var(--muted); opacity: 0.7; }
+
     /* VIDEO SECTION */
     .video-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-top: 1.5rem; }
     .video-card { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); overflow: hidden; }
@@ -375,44 +480,44 @@
     .video-label strong { display: block; font-family: var(--head); font-size: 0.9rem; color: var(--text); margin-bottom: 0.2rem; }
     .video-label span { color: var(--muted); font-size: 0.82rem; }
 
-    /* QUIZ SECTION */
-    .quiz-card {
+    /* KNOWLEDGE CHECK SECTION */
+    .kc-card {
       border: 1px solid var(--line); border-radius: 16px;
       background: var(--surface); padding: 1.4rem 1.5rem;
       margin-top: 1rem;
     }
-    .quiz-question { font-family: var(--head); font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 1rem; }
-    .quiz-options { display: grid; gap: 0.6rem; }
-    .quiz-opt {
+    .kc-question { font-family: var(--head); font-weight: 700; font-size: 1.05rem; color: var(--text); margin-bottom: 1rem; }
+    .kc-options { display: grid; gap: 0.6rem; }
+    .kc-opt {
       border: 1px solid var(--line); border-radius: 12px;
       background: var(--panel); color: var(--text);
       padding: 0.75rem 1rem; text-align: left; width: 100%;
       font-size: 0.93rem; line-height: 1.4;
       transition: border-color 180ms, background 180ms;
     }
-    .quiz-opt:focus { outline: 2px solid var(--teal); outline-offset: 2px; }
-    .quiz-opt:hover:not(:disabled) { border-color: rgba(26,223,176,.5); background: var(--teal-dim); }
-    .quiz-opt.correct { border-color: var(--teal); background: rgba(26,223,176,.18); color: var(--text); }
-    .quiz-opt.correct::after { content: " ✓"; color: var(--teal); font-weight: 800; }
-    .quiz-opt.wrong { border-color: #E05A6A; background: rgba(224,90,106,.15); color: var(--text); }
-    .quiz-opt.wrong::after { content: " ✗"; color: #E05A6A; font-weight: 800; }
-    .quiz-feedback {
+    .kc-opt:focus { outline: 2px solid var(--teal); outline-offset: 2px; }
+    .kc-opt:hover:not(:disabled) { border-color: rgba(9,116,90,.4); background: var(--teal-dim); }
+    .kc-opt.correct { border-color: var(--teal); background: rgba(9,116,90,.12); color: var(--text); }
+    .kc-opt.correct::after { content: " ✓"; color: var(--teal); font-weight: 800; }
+    .kc-opt.wrong { border-color: #E05A6A; background: rgba(224,90,106,.15); color: var(--text); }
+    .kc-opt.wrong::after { content: " ✗"; color: #E05A6A; font-weight: 800; }
+    .kc-feedback {
       margin-top: 0.9rem; padding: 0.85rem 1rem;
       border-radius: 12px; font-size: 0.93rem; display: none;
     }
-    .quiz-feedback.show { display: block; }
-    .quiz-feedback.pass { background: rgba(26,223,176,.12); border: 1px solid rgba(26,223,176,.35); color: #C0E8D8; }
-    .quiz-feedback.fail { background: rgba(224,90,106,.12); border: 1px solid rgba(224,90,106,.3); color: #F0AAAA; }
-    .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; flex-wrap: wrap; gap: 0.6rem; }
-    .quiz-progress { color: var(--muted); font-family: var(--head); font-size: 0.85rem; font-weight: 700; }
-    .quiz-score-box {
+    .kc-feedback.show { display: block; }
+    .kc-feedback.pass { background: rgba(9,116,90,.1); border: 1px solid rgba(9,116,90,.3); color: #0B5C48; }
+    .kc-feedback.fail { background: rgba(224,90,106,.12); border: 1px solid rgba(224,90,106,.3); color: #F0AAAA; }
+    .kc-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; flex-wrap: wrap; gap: 0.6rem; }
+    .kc-progress { color: var(--muted); font-family: var(--head); font-size: 0.85rem; font-weight: 700; }
+    .kc-score-box {
       text-align: center; padding: 2rem;
       border: 1px solid var(--line); border-radius: 16px;
       background: var(--surface); margin-top: 1rem;
     }
-    .quiz-score-box .score-num { font-family: var(--head); font-size: 3.5rem; font-weight: 800; color: var(--teal); line-height: 1; }
-    .quiz-score-box .score-label { color: var(--muted); font-size: 1rem; margin-top: 0.4rem; }
-    .quiz-score-box .score-msg { color: var(--text); font-size: 1.05rem; margin-top: 0.8rem; font-weight: 600; }
+    .kc-score-box .score-num { font-family: var(--head); font-size: 3.5rem; font-weight: 800; color: var(--teal); line-height: 1; }
+    .kc-score-box .score-label { color: var(--muted); font-size: 1rem; margin-top: 0.4rem; }
+    .kc-score-box .score-msg { color: var(--text); font-size: 1.05rem; margin-top: 0.8rem; font-weight: 600; }
 
     @media (max-width: 900px) {
       .two-col, .ml-grid { grid-template-columns: 1fr; }
@@ -432,7 +537,7 @@
 </head>
 <body>
 
-<a href="#main" style="position:absolute;top:-50px;left:1rem;background:var(--teal);color:#0B1623;padding:.5rem .9rem;border-radius:999px;z-index:30;font-weight:800;font-size:.88rem;text-decoration:none;" onfocus="this.style.top='1rem'" onblur="this.style.top='-50px'">Skip to main content</a>
+<a href="#main" style="position:absolute;top:-50px;left:1rem;background:var(--teal);color:#FFFFFF;padding:.5rem .9rem;border-radius:999px;z-index:30;font-weight:800;font-size:.88rem;text-decoration:none;" onfocus="this.style.top='1rem'" onblur="this.style.top='-50px'">Skip to main content</a>
 
 <nav class="site-nav" aria-label="Lunch and learn navigation">
   <div class="nav-inner">
@@ -444,7 +549,8 @@
       <a href="#tools">RAG &amp; Tools</a>
       <a href="#quickdraw">Quick, Draw!</a>
       <a href="#videos">Videos</a>
-      <a href="#quiz">Quiz</a>
+      <a href="#knowledge-check">Knowledge Check</a>
+      <a href="#reflection">Reflection</a>
       <a href="#takeaways">Takeaways</a>
     </nav>
   </div>
@@ -464,6 +570,55 @@
           <span class="note-label">Learner promise</span>
           <p>By the end you'll be able to explain what an LLM is, why it sometimes gets things wrong, and where your judgment still matters most.</p>
         </div>
+
+        <div class="warmup-card reveal" aria-labelledby="warmup-label">
+          <div class="warmup-header">
+            <span class="warmup-badge">Before we start &middot; 2 min</span>
+          </div>
+          <p id="warmup-label" class="warmup-q"><strong>Round robin &mdash; one person shares, then passes to the next.</strong> Pick one below, then tell us a little about how you used it.</p>
+
+          <div class="warmup-options" role="group" aria-label="Pick the tool you used this week">
+            <button class="warmup-chip" data-tool="Search / Google">Search / Google</button>
+            <button class="warmup-chip" data-tool="ChatGPT or Copilot">ChatGPT or Copilot</button>
+            <button class="warmup-chip" data-tool="Autocomplete in email or docs">Autocomplete</button>
+            <button class="warmup-chip" data-tool="Voice assistant">Voice assistant</button>
+            <button class="warmup-chip" data-tool="An image or video tool">Image / video tool</button>
+            <button class="warmup-chip" data-tool="Something else">Something else</button>
+          </div>
+          <div class="warmup-response" id="warmupResponse" aria-live="polite" role="status"></div>
+
+          <div class="robin-tracker" id="robinTracker" aria-live="polite">
+            <div class="robin-state" id="robinState">
+              <div class="robin-step-label" id="robinStepLabel">Who&rsquo;s going first?</div>
+              <div class="robin-name-row">
+                <input type="text" class="robin-name-input" id="robinNameInput" placeholder="Type a name and press Start&hellip;" aria-label="Name of first person to share" />
+                <button class="button primary" id="robinStartBtn" style="white-space:nowrap;">Start round</button>
+              </div>
+            </div>
+
+            <div class="robin-active" id="robinActive" style="display:none;">
+              <div class="robin-speaker-card" id="robinSpeakerCard">
+                <div class="robin-turn-label">Now sharing</div>
+                <div class="robin-speaker-name" id="robinSpeakerName"></div>
+                <div class="robin-prompt" id="robinSpeakerTool">Pick a tool above first</div>
+              </div>
+              <div class="robin-pass-row" id="robinPassRow" style="display:none;">
+                <input type="text" class="robin-name-input" id="robinNextInput" placeholder="Who&rsquo;s next? Type their name&hellip;" aria-label="Name of next person to share" />
+                <button class="button primary" id="robinPassBtn">Pass it on &rarr;</button>
+                <button class="button" id="robinDoneBtn">Done &mdash; everyone shared</button>
+              </div>
+            </div>
+
+            <div class="robin-summary" id="robinSummary" style="display:none;">
+              <div class="robin-summary-title">Everyone shared &mdash; great start.</div>
+              <ul class="robin-log" id="robinLog" aria-label="Round robin log"></ul>
+              <button class="button" id="robinResetBtn" style="margin-top:0.75rem;">Start over</button>
+            </div>
+          </div>
+
+          <p class="warmup-hint">No wrong answers &mdash; you already use AI more than you think.</p>
+        </div>
+
         <div class="scroll-cue" aria-hidden="true"><span class="mouse"></span><span>Scroll to begin</span></div>
       </div>
     </div>
@@ -806,18 +961,18 @@
     </div>
   </section>
 
-  <!-- QUIZ -->
-  <section id="quiz" aria-labelledby="quiz-heading">
+  <!-- KNOWLEDGE CHECK -->
+  <section id="knowledge-check" aria-labelledby="kc-heading">
     <div class="section-inner">
       <div class="reveal">
         <div class="eyebrow">Knowledge Check &middot; 6 Questions</div>
-        <h2 id="quiz-heading">Test what stuck.</h2>
+        <h2 id="kc-heading">Test what stuck.</h2>
         <div class="teal-line" aria-hidden="true"></div>
         <p>Based directly on the Class 1 material. No trick questions — just a quick check on the core concepts before we move to Prompt Engineering next session.</p>
       </div>
 
       <div class="reveal" style="max-width:720px;margin-top:1.5rem;">
-        <div id="quizContainer">
+        <div id="kcContainer">
           <!-- rendered by JS -->
         </div>
       </div>
@@ -856,10 +1011,88 @@
         <a class="button primary" href="#top">Review Again</a>
         <a class="button" href="#">&#8592; Back to Portfolio</a>
       </div>
+    </div>
+  </section>
 
-      <p class="reveal" style="margin:2rem auto 0;font-size:.9rem;color:var(--muted);max-width:520px;">
-        Next session: <strong style="color:var(--teal);">Prompt Engineering</strong> — zero-shot, few-shot, chain-of-thought, and RAG-aware prompting techniques.
-      </p>
+  <!-- BACK OF THE ROOM REFLECTION -->
+  <section id="reflection" aria-labelledby="reflection-heading">
+    <div class="section-inner">
+      <div class="reveal">
+        <div class="eyebrow">Before Next Session</div>
+        <h2 id="reflection-heading">Connecting what you know to what's coming.</h2>
+        <div class="teal-line" aria-hidden="true"></div>
+        <p class="lead">The best learning happens when new information connects to something you already know. Before our next session on Prompt Engineering, take two minutes to reflect.</p>
+      </div>
+
+      <div class="two-col reveal" style="margin-top:2rem; align-items:start; gap:2.5rem;">
+
+        <div>
+          <h3 style="font-size:1.15rem; margin-bottom:1rem;">Where are you right now?</h3>
+
+          <div style="display:grid; gap:1rem;">
+            <div class="botr-card" id="botr1" role="group" aria-labelledby="botr1-label">
+              <p id="botr1-label" class="botr-q">&#128161; What's one thing from today that genuinely surprised you — or changed how you thought about AI?</p>
+              <textarea class="botr-input" aria-label="Your response to question 1" placeholder="Type your reflection here — this stays in your browser, nothing is sent anywhere..."></textarea>
+            </div>
+
+            <div class="botr-card" id="botr2" role="group" aria-labelledby="botr2-label">
+              <p id="botr2-label" class="botr-q">&#128279; Where do you already use something like "prompting" without calling it that? Think about search engines, voice assistants, chatbots at work — what have you noticed makes a difference?</p>
+              <textarea class="botr-input" aria-label="Your response to question 2" placeholder="Think broadly — you may know more than you think..."></textarea>
+            </div>
+
+            <div class="botr-card" id="botr3" role="group" aria-labelledby="botr3-label">
+              <p id="botr3-label" class="botr-q">&#10067; What's one question you're walking into the next session with? What do you most want to understand about how to talk to AI?</p>
+              <textarea class="botr-input" aria-label="Your response to question 3" placeholder="No wrong answers — your question is valid..."></textarea>
+            </div>
+          </div>
+
+          <div class="botr-card" id="botr-commit" style="margin-top:1rem; border-color:rgba(9,116,90,.3); background:rgba(9,116,90,.06);" role="group" aria-labelledby="commit-label">
+            <p id="commit-label" class="botr-q" style="color:var(--teal);">&#127919; Commitment card</p>
+            <p style="margin:0 0 0.75rem; font-size:0.95rem; color:var(--muted);">Write one specific thing you will try before the next session. The more concrete, the better &mdash; <em>&ldquo;I will use AI to draft my meeting agenda on Thursday&rdquo;</em> beats <em>&ldquo;I will try AI.&rdquo;</em></p>
+            <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+              <label for="commitInput" style="font-weight:700; color:var(--text); font-family:var(--head); font-size:0.95rem; white-space:nowrap;">By Friday I will use AI to</label>
+              <input type="text" id="commitInput" class="commit-input" aria-label="Commitment: By Friday I will use AI to..." placeholder="draft my weekly status update..." />
+            </div>
+            <p id="commitEcho" class="commit-echo" aria-live="polite" role="status" style="display:none;"></p>
+          </div>
+
+          <div class="btn-row" style="margin-top:1rem;">
+            <button class="button primary" id="botrSave">Save Reflections &amp; Commitment</button>
+            <button class="button" id="botrClear">Clear</button>
+          </div>
+          <p id="botrMsg" style="font-size:0.85rem; color:var(--teal); margin-top:0.6rem; display:none;" role="status" aria-live="polite">&#10003; Saved to your browser. Your notes will be here when you return.</p>
+        </div>
+
+        <div>
+
+          <div class="note" style="margin-top:0.9rem;">
+            <span class="note-label">What Prompt Engineering actually is</span>
+            <p>Writing a prompt is the only control you have over an LLM's output. The model is fixed — you can't retrain it on the fly. Your prompt is the steering wheel. Next session covers the patterns that consistently produce better results: being specific about role, context, task, and format; using examples; and knowing when to chain steps instead of asking everything at once.</p>
+          </div>
+
+          <div class="misconception" style="margin-top:0.9rem;">
+            <span class="note-label">Common assumption to challenge</span>
+            <p>"Better prompts are just longer prompts." Not true. A focused, structured short prompt almost always outperforms a rambling long one. We'll explore why — and practice the patterns that actually move the needle.</p>
+          </div>
+
+          <div class="source-note" style="margin-top:0.9rem;">
+            <p>&#128218; From the UMBC course: Prompt Engineering is its own discipline. The next class covers zero-shot, few-shot, chain-of-thought, and RAG-aware prompting — each suited to different tasks and contexts.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:3rem; padding:2rem; border:1px solid var(--line); border-radius:20px; background:var(--surface); text-align:center;">
+        <p style="color:var(--teal); font-family:var(--head); font-weight:800; font-size:1rem; margin:0 0 0.5rem; text-transform:uppercase; letter-spacing:0.08em;">Coming up next</p>
+        <h3 style="font-size:1.8rem; margin:0 0 0.7rem;">Prompt Engineering</h3>
+        <p style="margin:0 auto; max-width:560px;">How to write prompts that reliably get what you need — zero-shot, few-shot, chain-of-thought, role prompting, and how RAG changes the equation. Bring your question from the reflection above.</p>
+        <div class="pill-row" style="justify-content:center; margin-top:1rem;">
+          <span class="pill">zero-shot prompting</span>
+          <span class="pill">few-shot examples</span>
+          <span class="pill">chain-of-thought</span>
+          <span class="pill">role prompting</span>
+          <span class="pill">RAG-aware prompts</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -894,7 +1127,7 @@
     ml:    { title:'Machine Learning', copy:'Instead of programming every rule by hand, we show the system thousands of examples and let it find patterns itself. The model continuously improves with new data. ML is a subset of AI — not all AI uses ML. Traditional rule-based systems like IBM Deep Blue are AI but not ML.', pills:['learns from examples','pattern recognition','continuous improvement'] },
     dl:    { title:'Deep Learning', copy:'A subfield of ML using neural networks with many stacked layers ("deep"). Inspired by the brain\'s neurons. Each layer extracts more abstract features. Geoffrey Hinton coined the term in 2006 and received the 2024 Nobel Prize in Physics for this work.', pills:['neural networks','many layers','GPUs required'] },
     llm:   { title:'Large Language Models', copy:'Deep learning models trained on petabytes of text. They predict the next token (word fragment) based on everything before it. Scale unlocks "emergent" capabilities — tasks the model was never explicitly trained for. GPT-3 had 175 billion parameters; GPT-4 has over 1 trillion.', pills:['next-token prediction','billions of parameters','emergent abilities'] },
-    genai: { title:'Generative AI', copy:'Neural networks that create new content — text, images, audio, video, code — usually in response to a natural language prompt. GenAI is not new: ELIZA chatbot (1966), T9 text prediction (1995), Google Autocomplete (2008) are early forms. ChatGPT made it feel new because of its scale and fluency.', pills:['creates new content','text images video code','very powerful autocomplete'] }
+    genai: { title:'Generative AI', copy:'Neural networks that create new content — text, images, audio, video, code — usually in response to a natural language prompt. GenAI is not new: ELIZA chatbot (1966), T9 text prediction (1995), Google Autocomplete (2008) are early forms. ChatGPT made it feel new because of its scale and fluency.', pills:['creates new content','text images video code','patterns in human data'] }
   };
 
   document.querySelectorAll('.layer-btn').forEach(btn => {
@@ -970,7 +1203,155 @@
     window.open('https://quickdraw.withgoogle.com/', '_blank', 'noopener,noreferrer');
   });
 
-  // ── QUIZ ──────────────────────────────────────────────────────────────────
+  // ── OPENING WARM-UP: ROUND ROBIN ─────────────────────────────────────────────
+  const warmupResponses = {
+    'Search / Google':             'Great — search engines have used AI ranking and query prediction for years. More AI experience than most people realize.',
+    'ChatGPT or Copilot':          'Perfect — already in the middle of it. Today will give you the mental model behind what you’re using.',
+    'Autocomplete in email or docs':'Yes — autocomplete in Gmail, Outlook, and Docs is a lightweight LLM doing next-token prediction. Sound familiar after today?',
+    'Voice assistant':             'Siri, Alexa, Google Assistant — all ML-powered speech recognition and intent classification. Classic AI.',
+    'An image or video tool':      'Image generation is GenAI in a different modality — same transformer architecture, trained on image-text pairs instead of text.',
+    'Something else':              'Whatever it is, it counts. AI is embedded in more tools than most people realize — often invisibly.'
+  };
+
+  const robinLog = [];
+  let currentSpeaker = '';
+
+  const robinNameInput  = document.getElementById('robinNameInput');
+  const robinStartBtn   = document.getElementById('robinStartBtn');
+  const robinState      = document.getElementById('robinState');
+  const robinActive     = document.getElementById('robinActive');
+  const robinSpeakerName= document.getElementById('robinSpeakerName');
+  const robinPassRow    = document.getElementById('robinPassRow');
+  const robinNextInput  = document.getElementById('robinNextInput');
+  const robinPassBtn    = document.getElementById('robinPassBtn');
+  const robinDoneBtn    = document.getElementById('robinDoneBtn');
+  const robinSummary    = document.getElementById('robinSummary');
+  const robinLogEl      = document.getElementById('robinLog');
+  const robinResetBtn   = document.getElementById('robinResetBtn');
+  const warmupResp      = document.getElementById('warmupResponse');
+
+  function showSpeaker(name) {
+    currentSpeaker = name;
+    robinSpeakerName.textContent = name;
+    robinState.style.display   = 'none';
+    robinActive.style.display  = 'block';
+    robinSummary.style.display = 'none';
+    robinPassRow.style.display = 'none';
+    // Reset chips and response for the new speaker
+    document.querySelectorAll('.warmup-chip').forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed','false'); });
+    warmupResp.textContent = '';
+    warmupResp.classList.remove('show');
+    const speakerTool = document.getElementById('robinSpeakerTool');
+    if (speakerTool) speakerTool.textContent = 'Pick a tool above';
+    robinNextInput.value = '';
+  }
+
+  function logEntry(name, tool) {
+    robinLog.push({ name, tool });
+    const li = document.createElement('li');
+    li.innerHTML = `<span>${name}</span><span class="log-tool">— ${tool || 'shared'}</span>`;
+    robinLogEl.appendChild(li);
+  }
+
+  robinStartBtn.addEventListener('click', () => {
+    const name = robinNameInput.value.trim();
+    if (!name) { robinNameInput.focus(); return; }
+    showSpeaker(name);
+  });
+
+  robinNameInput.addEventListener('keydown', e => { if (e.key === 'Enter') robinStartBtn.click(); });
+  robinNextInput.addEventListener('keydown', e => { if (e.key === 'Enter') robinPassBtn.click(); });
+
+  document.querySelectorAll('.warmup-chip').forEach(chip => {
+    chip.setAttribute('aria-pressed','false');
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.warmup-chip').forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed','false'); });
+      chip.classList.add('selected');
+      chip.setAttribute('aria-pressed','true');
+      warmupResp.textContent = warmupResponses[chip.dataset.tool] || '';
+      warmupResp.classList.add('show');
+      // Update the speaker card prompt if a speaker is active
+      const speakerTool = document.getElementById('robinSpeakerTool');
+      if (speakerTool) speakerTool.textContent = chip.dataset.tool;
+      if (robinActive.style.display !== 'none') {
+        robinPassRow.style.display = 'flex';
+        robinNextInput.focus();
+      }
+    });
+  });
+
+  robinPassBtn.addEventListener('click', () => {
+    const nextName = robinNextInput.value.trim();
+    if (!nextName) { robinNextInput.focus(); return; }
+    const tool = document.querySelector('.warmup-chip.selected')?.dataset.tool || '';
+    logEntry(currentSpeaker, tool);
+    showSpeaker(nextName);
+  });
+
+  robinDoneBtn.addEventListener('click', () => {
+    const tool = document.querySelector('.warmup-chip.selected')?.dataset.tool || '';
+    logEntry(currentSpeaker, tool);
+    robinActive.style.display  = 'none';
+    robinSummary.style.display = 'block';
+  });
+
+  robinResetBtn.addEventListener('click', () => {
+    robinLog.length = 0;
+    robinLogEl.innerHTML = '';
+    robinNameInput.value = '';
+    robinState.style.display   = 'block';
+    robinActive.style.display  = 'none';
+    robinSummary.style.display = 'none';
+  });
+
+  // ── BACK OF THE ROOM REFLECTION ───────────────────────────────────────────
+  const botrInputs = document.querySelectorAll('.botr-input');
+  const commitInput = document.getElementById('commitInput');
+  const commitEcho  = document.getElementById('commitEcho');
+
+  // Restore saved reflections
+  botrInputs.forEach((el, i) => {
+    const saved = sessionStorage.getItem(`botr-${i}`);
+    if (saved) el.value = saved;
+    el.addEventListener('input', () => sessionStorage.setItem(`botr-${i}`, el.value));
+  });
+
+  // Restore saved commitment
+  const savedCommit = sessionStorage.getItem('botr-commit');
+  if (savedCommit) {
+    commitInput.value = savedCommit;
+    commitEcho.textContent = `✓ Your commitment: "By Friday I will use AI to ${savedCommit}"`;
+    commitEcho.style.display = 'block';
+  }
+
+  // Live echo as they type
+  commitInput.addEventListener('input', () => {
+    sessionStorage.setItem('botr-commit', commitInput.value);
+    if (commitInput.value.trim()) {
+      commitEcho.textContent = `✓ "By Friday I will use AI to ${commitInput.value.trim()}"`;
+      commitEcho.style.display = 'block';
+    } else {
+      commitEcho.style.display = 'none';
+    }
+  });
+
+  document.getElementById('botrSave').addEventListener('click', () => {
+    botrInputs.forEach((el, i) => sessionStorage.setItem(`botr-${i}`, el.value));
+    sessionStorage.setItem('botr-commit', commitInput.value);
+    const msg = document.getElementById('botrMsg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 4000);
+  });
+
+  document.getElementById('botrClear').addEventListener('click', () => {
+    botrInputs.forEach((el, i) => { el.value = ''; sessionStorage.removeItem(`botr-${i}`); });
+    commitInput.value = '';
+    commitEcho.style.display = 'none';
+    sessionStorage.removeItem('botr-commit');
+    document.getElementById('botrMsg').style.display = 'none';
+  });
+
+  // ── KNOWLEDGE CHECK ──────────────────────────────────────────────────────
   const questions = [
     {
       q: "Which of these best describes Machine Learning?",
@@ -1044,25 +1425,25 @@
 
   function renderQuestion() {
     const q = questions[current];
-    const container = document.getElementById('quizContainer');
+    const container = document.getElementById('kcContainer');
     container.innerHTML = `
-      <div class="quiz-card">
-        <div class="quiz-progress">Question ${current + 1} of ${questions.length}</div>
-        <p class="quiz-question" style="margin-top:.6rem;">${q.q}</p>
-        <div class="quiz-options" role="group" aria-label="Answer options">
+      <div class="kc-card">
+        <div class="kc-progress">Question ${current + 1} of ${questions.length}</div>
+        <p class="kc-question" style="margin-top:.6rem;">${q.q}</p>
+        <div class="kc-options" role="group" aria-label="Answer options">
           ${q.opts.map((opt, i) => `
-            <button class="quiz-opt" data-index="${i}" aria-pressed="false">${opt}</button>
+            <button class="kc-opt" data-index="${i}" aria-pressed="false">${opt}</button>
           `).join('')}
         </div>
-        <div class="quiz-feedback" id="qfeedback" role="status" aria-live="polite"></div>
-        <div class="quiz-nav">
-          <span class="quiz-progress" id="scoreDisplay">Score: ${score} / ${questions.length}</span>
+        <div class="kc-feedback" id="qfeedback" role="status" aria-live="polite"></div>
+        <div class="kc-nav">
+          <span class="kc-progress" id="scoreDisplay">Score: ${score} / ${questions.length}</span>
           <button class="button primary" id="nextBtn" style="display:none;">${current < questions.length - 1 ? 'Next Question →' : 'See Results'}</button>
         </div>
       </div>
     `;
     answered = false;
-    document.querySelectorAll('.quiz-opt').forEach(btn => {
+    document.querySelectorAll('.kc-opt').forEach(btn => {
       btn.addEventListener('click', () => selectAnswer(parseInt(btn.dataset.index)));
     });
   }
@@ -1071,14 +1452,14 @@
     if (answered) return;
     answered = true;
     const q = questions[current];
-    const opts = document.querySelectorAll('.quiz-opt');
+    const opts = document.querySelectorAll('.kc-opt');
     const fb = document.getElementById('qfeedback');
     opts.forEach(b => b.disabled = true);
     opts[idx].classList.add(idx === q.correct ? 'correct' : 'wrong');
     if (idx !== q.correct) opts[q.correct].classList.add('correct');
     if (idx === q.correct) score++;
     fb.textContent = (idx === q.correct ? '✓ Correct! ' : '✗ Not quite. ') + q.explain;
-    fb.className = 'quiz-feedback show ' + (idx === q.correct ? 'pass' : 'fail');
+    fb.className = 'kc-feedback show ' + (idx === q.correct ? 'pass' : 'fail');
     document.getElementById('scoreDisplay').textContent = `Score: ${score} / ${questions.length}`;
     document.getElementById('nextBtn').style.display = 'inline-flex';
     document.getElementById('nextBtn').addEventListener('click', () => {
@@ -1097,8 +1478,8 @@
       [0, "No worries — review the sections above and try again. These concepts take a pass or two."]
     ];
     const msg = msgs.find(([min]) => score >= min)[1];
-    document.getElementById('quizContainer').innerHTML = `
-      <div class="quiz-score-box">
+    document.getElementById('kcContainer').innerHTML = `
+      <div class="kc-score-box">
         <div class="score-num">${score}/${questions.length}</div>
         <div class="score-label">${pct}% correct</div>
         <div class="score-msg">${msg}</div>
