@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PANW Interview — Quick Reference</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg:#0B1220;
+    --panel:#101A2E;
+    --panel-2:#0D1626;
+    --line:#233047;
+    --accent:#FA582D;
+    --accent-dim:#7A2E17;
+    --teal:#2DD4BF;
+    --text:#E8ECF4;
+    --muted:#8B96AC;
+    --muted-2:#5C6883;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(250,88,45,0.10), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(45,212,191,0.07), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    padding:0 0 60px 0;
+  }
+
+  a{color:var(--teal);}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- HERO / BANNER ---------- */
+  .banner{
+    background:linear-gradient(90deg, rgba(250,88,45,0.18), rgba(250,88,45,0.02));
+    border-bottom:1px solid var(--line);
+    padding:14px 0;
+  }
+  .banner .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .banner-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.04em;
+    color:var(--accent);
+  }
+  .banner-label b{color:var(--text);}
+
+  header.hero{
+    padding:52px 0 34px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--teal);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  h1.thesis{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(30px,4.4vw,46px);
+    line-height:1.12;
+    margin:0 0 16px 0;
+    letter-spacing:-0.01em;
+  }
+  h1.thesis span{color:var(--accent);}
+  .sub{
+    color:var(--muted);
+    font-size:16px;
+    max-width:640px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.jump{
+    position:sticky; top:0; z-index:20;
+    background:rgba(11,18,32,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.jump .wrap{
+    display:flex; gap:4px; overflow-x:auto; padding:10px 28px;
+    scrollbar-width:none;
+  }
+  nav.jump .wrap::-webkit-scrollbar{display:none;}
+  nav.jump a{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    color:var(--muted);
+    text-decoration:none;
+    white-space:nowrap;
+    padding:6px 12px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    transition:all .15s ease;
+  }
+  nav.jump a:hover{color:var(--text);border-color:var(--accent);}
+
+  /* ---------- SECTION LAYOUT ---------- */
+  section{padding:40px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  .kicker{
+    display:flex; align-items:baseline; gap:10px; margin-bottom:22px;
+  }
+  .kicker .num{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--accent-dim);
+    font-size:13px;
+  }
+  .kicker h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:22px;
+    font-weight:600;
+    margin:0;
+    color:var(--text);
+  }
+  .kicker::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, var(--line), transparent);
+  }
+
+  /* grid utilities */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:820px){ .grid-2, .grid-3{grid-template-columns:1fr;} }
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:20px 22px;
+  }
+  .card h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:14.5px;
+    font-weight:600;
+    margin:0 0 10px 0;
+    color:var(--teal);
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+  }
+
+  ul.plain{list-style:none;margin:0;padding:0;}
+  ul.plain li{
+    padding:7px 0 7px 20px;
+    position:relative;
+    color:var(--text);
+    font-size:14.5px;
+    border-top:1px dashed var(--line);
+  }
+  ul.plain li:first-child{border-top:none;padding-top:0;}
+  ul.plain li::before{
+    content:"▹";
+    position:absolute; left:0; top:7px;
+    color:var(--accent);
+    font-size:13px;
+  }
+
+  /* Differentiators */
+  .diff-item{
+    display:flex; gap:12px; align-items:flex-start;
+    padding:12px 0;
+    border-top:1px dashed var(--line);
+  }
+  .diff-item:first-child{border-top:none;padding-top:0;}
+  .diff-star{color:var(--accent); font-size:15px; flex:none;}
+  .diff-item p{margin:0; font-size:14.5px;}
+
+  /* Intro script */
+  .script{
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    border-radius:8px;
+    padding:22px 24px;
+    font-size:15px;
+    color:var(--text);
+  }
+  .script p{margin:0 0 12px 0;}
+  .script p:last-child{margin-bottom:0;}
+
+  /* AI philosophy checklist */
+  .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;}
+  @media(max-width:600px){.check-grid{grid-template-columns:1fr;}}
+  .check{
+    display:flex; align-items:center; gap:10px;
+    font-size:14.5px;
+    padding:6px 0;
+  }
+  .check .mark{
+    color:var(--teal); font-family:'JetBrains Mono',monospace; font-weight:600;
+  }
+
+  /* Platform map */
+  .platform-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  @media(max-width:900px){.platform-grid{grid-template-columns:repeat(2,1fr);}}
+  .plat-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:16px 16px 14px;
+    position:relative;
+    overflow:hidden;
+  }
+  .plat-card::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:3px;
+    background:var(--plat-color, var(--accent));
+  }
+  .plat-card h4{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px; letter-spacing:0.04em;
+    margin:4px 0 4px 0;
+    color:var(--text);
+  }
+  .plat-card .role{
+    font-size:12px; color:var(--muted); margin-bottom:10px;
+  }
+  .plat-card ul{margin:0;padding-left:16px;}
+  .plat-card li{font-size:13px;color:var(--muted);padding:2px 0;}
+  .platform-tagline{
+    margin-top:16px; text-align:center; font-family:'Space Grotesk',sans-serif;
+    font-size:15px; color:var(--text); font-weight:600;
+  }
+  .platform-tagline span{color:var(--accent);}
+
+  /* Translation table */
+  table.translate{
+    width:100%; border-collapse:collapse; font-size:14.5px;
+  }
+  table.translate th{
+    text-align:left; font-family:'JetBrains Mono',monospace; font-size:11.5px;
+    letter-spacing:0.04em; text-transform:uppercase; color:var(--muted-2);
+    padding:8px 12px; border-bottom:1px solid var(--line);
+  }
+  table.translate td{
+    padding:10px 12px; border-bottom:1px solid var(--line);
+  }
+  table.translate td:first-child{color:var(--muted);}
+  table.translate td:last-child{color:var(--teal); font-weight:500;}
+  table.translate tr:last-child td{border-bottom:none;}
+  .arrow-cell{color:var(--muted-2)!important; width:24px; text-align:center;}
+
+  /* Power phrases */
+  .phrases{display:flex;flex-direction:column;gap:10px;}
+  .phrase{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:12px 16px;
+    color:var(--text);
+  }
+  .phrase::before{content:"\201C"; color:var(--accent);}
+  .phrase::after{content:"\201D"; color:var(--accent);}
+
+  /* Reminders */
+  .reminders{display:flex;flex-direction:column;gap:0;}
+  .reminder{
+    display:flex; gap:12px; align-items:flex-start;
+    padding:11px 0;
+    border-top:1px dashed var(--line);
+  }
+  .reminder:first-child{border-top:none;}
+  .reminder .check2{color:var(--teal); font-size:15px;}
+  .reminder p{margin:0; font-size:14.5px;}
+  .reminder b{color:var(--accent);}
+
+  /* Sales-experience answer */
+  .qa{
+    background:var(--panel-2); border:1px solid var(--line); border-radius:8px;
+    padding:18px 20px;
+  }
+  .qa .q{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted-2);margin-bottom:8px;letter-spacing:.03em;text-transform:uppercase;}
+  .qa .a{font-size:14.5px;}
+
+  footer{
+    text-align:center; padding:30px 0 10px 0; color:var(--muted-2);
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+  }
+
+  @media print{
+    nav.jump{display:none;}
+    body{background:#fff;color:#111;}
+    .card,.script,.plat-card,.phrase,.qa{background:#fafafa;border-color:#ddd;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="banner">
+    <div class="wrap">
+      <div class="banner-label"><b>Tomorrow, July 10</b> — Recruiter phone screen with Yuthika Shrivastava</div>
+      <div class="banner-label">Sales Enablement Architect · JR-016511 · Palo Alto Networks</div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Interview Cheat Sheet</div>
+      <h1 class="thesis">I translate <span>complexity</span> into confidence.</h1>
+      <p class="sub">One page, every argument. Skim before the call, glance during it.</p>
+    </div>
+  </header>
+
+  <nav class="jump">
+    <div class="wrap">
+      <a href="#brand">Brand</a>
+      <a href="#diff">Differentiators</a>
+      <a href="#intro">90-Sec Intro</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#ai">AI Philosophy</a>
+      <a href="#why">Why PANW</a>
+      <a href="#platform">Platform</a>
+      <a href="#framework">Launch Framework</a>
+      <a href="#sales">Sales Question</a>
+      <a href="#translate">CMS → Sales</a>
+      <a href="#ask">Ask Them</a>
+      <a href="#phrases">Power Phrases</a>
+      <a href="#remember">Remember</a>
+      <a href="#guardrails">AI Guardrails</a>
+      <a href="#values">Who They Are</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <section id="diff">
+      <div class="kicker"><span class="num">01</span><h2>My Differentiators</h2></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="diff-item"><span class="diff-star">★</span><p>15+ years leading cybersecurity learning and enablement</p></div>
+          <div class="diff-item"><span class="diff-star">★</span><p>AI-first mindset — hands-on with content creation, role plays, translations, personalized learning</p></div>
+          <div class="diff-item"><span class="diff-star">★</span><p>Lead without authority by building trust and aligning cross-functional teams</p></div>
+        </div>
+        <div class="card">
+          <div class="diff-item"><span class="diff-star">★</span><p>Enterprise scale — supported 60,000+ learners</p></div>
+          <div class="diff-item"><span class="diff-star">★</span><p>Bridge the gap between technical experts and business audiences</p></div>
+          <div class="diff-item"><span class="diff-star">★</span><p>Data-driven, focused on business outcomes</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="intro">
+      <div class="kicker"><span class="num">02</span><h2>90-Second Introduction</h2></div>
+      <div class="script">
+        <p>I've spent more than 15 years leading cybersecurity learning and enablement initiatives, helping organizations translate highly technical concepts into engaging learning experiences that drive measurable business outcomes.</p>
+        <p>Most recently, I led cybersecurity education programs supporting more than 60,000 federal employees and contractors — partnering with cybersecurity experts, executive stakeholders, and cross-functional teams to build enterprise learning strategies, role-based training, and AI-enabled learning experiences.</p>
+        <p>Over the past few years, I've embraced AI to accelerate content development, personalize learning, generate role-play scenarios, translate content into multiple languages, and improve learner support.</p>
+        <p>What excites me most about AI isn't just working faster — I believe AI should be seamlessly integrated into the workflow so it feels natural. The best AI is there when you need it, providing the right guidance at the right time without interrupting how people work.</p>
+        <p>Throughout my career, I've focused on helping people build confidence with complex technologies. That's why I'm excited about combining cybersecurity, AI, and enablement at Palo Alto Networks.</p>
+      </div>
+    </section>
+
+    <section id="leadership">
+      <div class="kicker"><span class="num">03</span><h2>Leadership Philosophy</h2></div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Core idea</h3>
+          <p style="font-size:14.5px;margin:0;">One of my greatest strengths is <b style="color:var(--text)">leading without authority</b> — I build trust, create alignment, and move initiatives forward without relying on formal power.</p>
+        </div>
+        <div class="card">
+          <h3>Who I've partnered with</h3>
+          <ul class="plain">
+            <li>Executive leadership</li>
+            <li>Cybersecurity SMEs · Engineers · Product owners</li>
+            <li>Learning teams · Business stakeholders</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai">
+      <div class="kicker"><span class="num">04</span><h2>My AI Philosophy</h2></div>
+      <div class="card">
+        <h3 style="margin-bottom:16px;">Technology is most powerful when it becomes almost invisible</h3>
+        <div class="check-grid">
+          <div class="check"><span class="mark">✔</span> Personalize learning</div>
+          <div class="check"><span class="mark">✔</span> Coach sellers</div>
+          <div class="check"><span class="mark">✔</span> Recommend the next best action</div>
+          <div class="check"><span class="mark">✔</span> Surface knowledge exactly when needed</div>
+          <div class="check"><span class="mark">✔</span> Remove friction</div>
+          <div class="check"><span class="mark">✔</span> Feel like a natural part of the workflow</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="kicker"><span class="num">05</span><h2>Why Palo Alto Networks</h2></div>
+      <div class="card">
+        <ul class="plain">
+          <li>AI-first cybersecurity leader</li>
+          <li>Unified platform approach</li>
+          <li>Solves real customer problems by reducing complexity</li>
+          <li>Opportunity to combine cybersecurity + AI + enablement</li>
+          <li>Passion for helping sellers confidently communicate value</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="platform">
+      <div class="kicker"><span class="num">06</span><h2>Palo Alto Platform Map</h2></div>
+      <div class="platform-grid">
+        <div class="plat-card" style="--plat-color:#FA582D;">
+          <h4>STRATA</h4>
+          <div class="role">Protect the network</div>
+          <ul><li>Firewalls</li><li>SASE</li><li>Zero Trust</li><li>SD-WAN</li></ul>
+        </div>
+        <div class="plat-card" style="--plat-color:#2DD4BF;">
+          <h4>PRISMA</h4>
+          <div class="role">Protect the cloud</div>
+          <ul><li>AWS</li><li>Azure</li><li>Google Cloud</li><li>Containers</li></ul>
+        </div>
+        <div class="plat-card" style="--plat-color:#8B5CF6;">
+          <h4>CORTEX</h4>
+          <div class="role">Detect and respond</div>
+          <ul><li>XDR</li><li>XSOAR</li><li>XSIAM</li></ul>
+        </div>
+        <div class="plat-card" style="--plat-color:#FBBF24;">
+          <h4>AI SECURITY</h4>
+          <div class="role">Protects AI</div>
+          <ul><li>ChatGPT</li><li>Copilot</li><li>Claude</li><li>Gemini · AI Agents</li></ul>
+        </div>
+      </div>
+      <div class="platform-tagline">Customers don't want dozens of disconnected tools. They want <span>one AI-powered cybersecurity platform.</span></div>
+    </section>
+
+    <section id="framework">
+      <div class="kicker"><span class="num">07</span><h2>Product Launch Framework</h2></div>
+      <div class="card">
+        <ul class="plain" style="columns:2;column-gap:24px;">
+          <li>Meet with stakeholders</li>
+          <li>Understand customer pain points</li>
+          <li>Define value proposition</li>
+          <li>Identify seller readiness</li>
+          <li>Build learning journey</li>
+          <li>Create enablement assets</li>
+          <li>Launch globally</li>
+          <li>Measure adoption</li>
+          <li>Gather feedback</li>
+          <li>Improve continuously</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="sales">
+      <div class="kicker"><span class="num">08</span><h2>If They Ask About Sales Experience</h2></div>
+      <div class="qa">
+        <div class="q">Prepared answer</div>
+        <div class="a">"While I haven't carried a sales quota recently, I've spent my career enabling people to confidently communicate highly technical cybersecurity concepts. Great enablement is about understanding the learner, simplifying complexity, partnering with stakeholders, measuring outcomes, and helping people perform. Those are the skills I've built throughout my career."</div>
+      </div>
+    </section>
+
+    <section id="translate">
+      <div class="kicker"><span class="num">09</span><h2>CMS Experience → Sales Enablement Language</h2></div>
+      <div class="card" style="padding:6px 22px 4px;">
+        <table class="translate">
+          <tr><th>My Experience</th><th></th><th>Their Language</th></tr>
+          <tr><td>Cybersecurity Awareness</td><td class="arrow-cell">→</td><td>Product Education</td></tr>
+          <tr><td>Annual Training</td><td class="arrow-cell">→</td><td>Seller Readiness</td></tr>
+          <tr><td>Role-Based Training</td><td class="arrow-cell">→</td><td>Persona-Based Learning</td></tr>
+          <tr><td>Tableau</td><td class="arrow-cell">→</td><td>Enablement Analytics</td></tr>
+          <tr><td>LMS</td><td class="arrow-cell">→</td><td>Learning Platform</td></tr>
+          <tr><td>SMEs</td><td class="arrow-cell">→</td><td>Product & Engineering Partners</td></tr>
+          <tr><td>AI Content</td><td class="arrow-cell">→</td><td>AI Enablement</td></tr>
+          <tr><td>Workforce Development</td><td class="arrow-cell">→</td><td>Sales Readiness</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section id="ask">
+      <div class="kicker"><span class="num">10</span><h2>Questions To Ask Them</h2></div>
+      <div class="card">
+        <ul class="plain">
+          <li>What does success look like in the first 90 days?</li>
+          <li>How is AI changing your enablement strategy?</li>
+          <li>What are the biggest priorities for this role?</li>
+          <li>How does Enablement partner with Product Marketing and Product Management?</li>
+          <li>What qualities make someone successful on this team?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="phrases">
+      <div class="kicker"><span class="num">11</span><h2>Power Phrases</h2></div>
+      <div class="phrases">
+        <div class="phrase">I translate complexity into confidence.</div>
+        <div class="phrase">I lead through influence, not authority.</div>
+        <div class="phrase">The best AI is seamless. It supports people naturally within their workflow.</div>
+        <div class="phrase">My goal isn't just learning completion. It's building confidence and improving business outcomes.</div>
+        <div class="phrase">Enablement is about helping sellers have better customer conversations.</div>
+        <div class="phrase">I enjoy turning complex technology into simple, actionable guidance.</div>
+        <div class="phrase">I focus on business impact, not just training delivery.</div>
+      </div>
+    </section>
+
+    <section id="remember">
+      <div class="kicker"><span class="num">12</span><h2>Things To Remember</h2></div>
+      <div class="card">
+        <div class="reminders">
+          <div class="reminder"><span class="check2">✔</span><p>Speak confidently. <b>Don't apologize</b> for not being in a sales role recently.</p></div>
+          <div class="reminder"><span class="check2">✔</span><p>Your audience changed from federal employees to sellers. <b>Your core skills did not.</b></p></div>
+          <div class="reminder"><span class="check2">✔</span><p><b>Smile</b> during the phone interview — it comes through in your voice.</p></div>
+          <div class="reminder"><span class="check2">✔</span><p>Use <b>"seller readiness," "business outcomes,"</b> and <b>"enablement"</b> instead of "training."</p></div>
+          <div class="reminder"><span class="check2">✔</span><p><b>You are responsible for AI at all times — used safely, not just used.</b> Every example you give should show a guardrail alongside the capability: who can see the output, what data it touched, how it's monitored.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="guardrails">
+      <div class="kicker"><span class="num">13</span><h2>Practice What They Preach — AI Guardrails</h2></div>
+      <div class="card" style="margin-bottom:16px;">
+        <h3>Their product: Prisma AIRS</h3>
+        <p style="font-size:14.5px;margin:0;">Palo Alto's own AI security platform — <b style="color:var(--text)">Prisma AIRS</b> — secures the entire AI ecosystem across five pillars: <b style="color:var(--teal)">AI Model Security, AI Posture Management, AI Red Teaming, AI Runtime Security,</b> and <b style="color:var(--teal)">AI Agent Security</b>. Latest version (AIRS 3.0) extends this to the full agentic AI lifecycle — from code to deployment to runtime — so enterprises move from just observing what AI says to safely authorizing what AI does.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>What "safe AI" means to them</h3>
+          <ul class="plain">
+            <li>Prevents prompt injection and jailbreak attempts in real time</li>
+            <li>Scans for sensitive data exposure before it leaves the system</li>
+            <li>Discovers Shadow AI — unmanaged tools and agents across the org</li>
+            <li>Assigns AI agents an identity, with role-based access and audit trails</li>
+            <li>Runs red-team simulations to find weaknesses before attackers do</li>
+            <li>Filters toxic or unsafe content in model outputs</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>How to use this in the call</h3>
+          <p style="font-size:14.5px;margin:0 0 10px 0;">When you describe using AI for content, role plays, or translations, add the guardrail in the same breath: who reviewed it, what data it could touch, how you'd monitor it in production.</p>
+          <p style="font-size:14.5px;margin:0;color:var(--muted);">This mirrors exactly what their own AI Security line does — <b style="color:var(--text)">visibility and control alongside capability</b> — so it shows you already think the way the platform is built.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="values">
+      <div class="kicker"><span class="num">14</span><h2>Palo Alto Networks — Who They Are</h2></div>
+      <div class="card" style="margin-bottom:16px;">
+        <h3>Mission</h3>
+        <p style="font-size:14.5px;margin:0;">United by a shared mission — <b style="color:var(--text)">to protect our digital way of life.</b> They thrive at the intersection of innovation and impact, solving real-world problems with cutting-edge technology and bold thinking. Everyone has a voice, and every idea counts.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Five Values</h3>
+          <ul class="plain">
+            <li>Disruption</li>
+            <li>Collaboration</li>
+            <li>Execution</li>
+            <li>Integrity</li>
+            <li>Inclusion</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>AI &amp; Culture</h3>
+          <p style="font-size:14.5px;margin:0 0 10px 0;">They weave <b style="color:var(--teal)">AI into the fabric of everything they do</b> — using it to augment the impact every individual can have. To be the cybersecurity partner of choice, they trailblaze the path and shape the future of the industry.</p>
+          <p style="font-size:14.5px;margin:0;color:var(--muted);">Role is remote; hybrid teams collaborate across geographies. Culture built on <b style="color:var(--text)">trust, accountability, and shared success.</b></p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>Prepared for the Palo Alto Networks recruiter screen · JR-016511</footer>
+
+</body>
+</html>
